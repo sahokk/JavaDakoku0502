@@ -1,0 +1,18 @@
+@startuml
+abstract class Dakoku {
+    - {abstract} loginUrl: String
+    - {abstract} dakokuUrl: String
+    - {abstract} loginIdField: String
+    - {abstract} loginPassField: String
+
+}
+
+class JcDakoku extends Dakoku {
+
+}
+
+class RDakoku extends Dakoku {
+
+}
+
+@enduml
