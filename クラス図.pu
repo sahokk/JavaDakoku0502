@@ -1,4 +1,4 @@
-@startuml
+"@startuml Dakoku Class図"
 abstract class Dakoku {
     
 }
