@@ -1,13 +1,14 @@
 @startuml
 abstract class Dakoku {
-    - {abstract} dakokuUrl: String
+    
 }
 
 class JcDakoku extends Dakoku {
-
+    - dakokuUrl: String
 }
 
 class RDakoku extends Dakoku {
+    - dakokuUrl: String
 
 }
 
