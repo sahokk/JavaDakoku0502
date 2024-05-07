@@ -1,0 +1,5 @@
+package dakoku_system.login;
+
+public abstract class Login {
+
+}

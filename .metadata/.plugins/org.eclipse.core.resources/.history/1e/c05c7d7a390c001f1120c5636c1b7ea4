@@ -1,0 +1,29 @@
+package login;
+
+public abstract class Login {
+	private String loginUrl, loginIdField, loginPassField, loginButton;
+
+	public Login(String loginUrl, String loginIdField, String loginPassField, String loginButton) {
+		this.loginUrl = loginUrl;
+		this.loginIdField = loginIdField;
+		this.loginPassField = loginPassField;
+		this.loginButton = loginButton;
+	}
+
+	public void accessLoginPage() {
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\user\\Documents\\JavaDakoku0502\\DakokuSystem\\exe\\chromedriver.exe");
+	}
+
+	public void sendLoginIdToField() {
+
+	}
+
+	public void sendLoginPassToField() {
+
+	}
+
+	public void pushLoginButton() {
+
+	}
+}

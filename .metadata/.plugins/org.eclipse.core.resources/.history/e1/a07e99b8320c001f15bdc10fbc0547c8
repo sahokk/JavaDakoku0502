@@ -1,0 +1,10 @@
+package login;
+
+public class JcLogin extends Login {
+
+	public JcLogin(String loginUrl, String loginIdField, String loginPassField, String loginButton) {
+		super(loginUrl, loginIdField, loginPassField, loginButton);
+	}
+	
+
+}

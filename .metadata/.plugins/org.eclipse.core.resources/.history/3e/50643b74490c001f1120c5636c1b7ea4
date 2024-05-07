@@ -1,0 +1,16 @@
+package login;
+
+import org.openqa.selenium.By;
+
+import utility.MyUrls;
+
+public class RLogin extends Login {
+
+	public RLogin(String loginUrl, By loginIdField, By loginPassField, By loginButton) {
+		super(loginUrl, loginIdField, loginPassField, loginButton);
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+	private static Login rLogin = new RLogin(MyUrls.R_LOGIN_URL.getValue());
+
+}

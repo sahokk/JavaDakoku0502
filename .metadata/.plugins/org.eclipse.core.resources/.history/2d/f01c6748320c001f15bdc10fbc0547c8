@@ -1,0 +1,31 @@
+package login;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public abstract class Login {
+	private String loginUrl, loginIdField, loginPassField, loginButton;
+
+	public Login(String loginUrl, String loginIdField, String loginPassField, String loginButton) {
+		this.loginUrl = loginUrl;
+		this.loginIdField = loginIdField;
+		this.loginPassField = loginPassField;
+		this.loginButton = loginButton;
+	}
+
+	public void accessLoginPage() {
+WebDriver driver = new ChromeDriver()
+	}
+
+	public void sendLoginIdToField() {
+
+	}
+
+	public void sendLoginPassToField() {
+
+	}
+
+	public void pushLoginButton() {
+
+	}
+}

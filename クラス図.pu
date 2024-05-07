@@ -1,25 +1,74 @@
 "@startuml Dakoku Class図"
-abstract class Dakoku {
+
+package utility {
+    enum MyUrls {
+        JC_LOGIN_URL
+        JC_DAKOKU_URL
+        R_LOGIN_URL
+        R_DAKOKU_URL
+    }
+
+    enum JcInformations {
     
+        JC_LOGIN_ID_FIELD
+        JC_LOGIN_PASS_FIELD
+        JC_LOGIN_BUTTON_FIELD
+
+        JC_DAKOKU_BUTTON_IN
+        JC_DAKOKU_BUTTON_OUT
+    
+    }
+enum RInformations {
+        R_LOGIN_ID_FIELD
+        R_LOGIN_PASS_FIELD
+        R_LOGIN_BUTTON_FIELD
+        
+        R_DAKOKU_LIST_BUTTON
+        R_DAKOKU_BUTTON_IN
+        R_DAKOKU_BUTTON_OUT
+    }
+}
+package login {
+    abstract class Login {
+        - loginUrl: String
+        - loginIdField: By
+        - loginPassField: By
+        - loginButton: By
+        ~ driver: Webdriver
+
+        - accessLoginPage(): void
+        - sendLoginIdToField(): void
+        - sendLoginPassToField(): void
+        - pushLoginButton(): void 
+        + login(): void
+        + getDriver(): Webdriver
+    }
+
+    class JcLogin extends Login {
+        - jcLogin: Login
+        - JcLogin
+        + getInstance(): Login
+    }
+
+    class RLogin extends Login {
+        - rLogin: Login
+        - RLogin
+        + getInstance(): Login
+    }
 }
 
-class JcDakoku extends Dakoku {
-    - dakokuUrl: String
+package run {
+    class main {
+
+    }
 }
 
-class RDakoku extends Dakoku {
-    - dakokuUrl: String
-
+package dakoku {
+    abstract class Dakoku {
+        
+    }
 }
 
-abstract class Login {
-    - {abstract} loginUrl: String
-    - {abstract} loginIdField: String
-    - {abstract} loginPassField: String
 
-    + getLoginUrl(): String
-    + getLoginField(): String
-    + getLoginPassField(): String
-}
 
 @enduml

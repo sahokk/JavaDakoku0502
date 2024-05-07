@@ -1,0 +1,10 @@
+/**
+ * 
+ */
+/**
+ * @author user
+ *
+ */
+module DakokuSystem {
+	requires org.seleniumhq.selenium.api;
+}

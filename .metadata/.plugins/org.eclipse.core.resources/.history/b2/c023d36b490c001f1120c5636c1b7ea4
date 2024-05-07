@@ -1,0 +1,9 @@
+package login;
+
+import utility.MyUrls;
+
+public class RLogin extends Login {
+
+	private static Login rLogin = new RLogin(MyUrls.R_LOGIN_URL.getValue());
+
+}

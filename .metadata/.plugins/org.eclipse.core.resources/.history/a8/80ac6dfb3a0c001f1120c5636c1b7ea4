@@ -1,0 +1,10 @@
+public class Test {
+	public static void main(String[] args) {
+
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exeまでのフルパス");
+
+		WebDriver driver = new ChromeDriver();
+
+		driver.get("http://google.com");
+	}
+}

@@ -1,0 +1,13 @@
+package run;
+
+import login.JcLogin;
+import login.Login;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Login jcLogin = JcLogin.getInstance();
+		jcLogin.login();
+	}
+
+}

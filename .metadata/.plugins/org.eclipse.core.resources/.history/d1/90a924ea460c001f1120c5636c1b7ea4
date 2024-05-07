@@ -1,0 +1,20 @@
+package run;
+
+import org.openqa.selenium.net.Urls;
+
+import login.JcLogin;
+import login.Login;
+import utility.JcInformations;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Login jcLogin = new JcLogin(Urls.LOGIN_URL.getValue(), JcInformations.LOGIN_ID_FIELD.getValue(),
+				JcInformations.LOGIN_PASS_FIELD.getValue(), JcInformations.LOGIN_BUTTON_FIELD.getValue());
+		jcLogin.accessLoginPage();
+		jcLogin.sendLoginIdToField();
+		jcLogin.sendLoginPassToField();
+		jcLogin.pushLoginButton();
+	}
+
+}

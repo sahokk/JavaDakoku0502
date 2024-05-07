@@ -1,0 +1,14 @@
+package run;
+
+import login.JcLogin;
+import login.Login;
+import utility.JcInformations;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Login jcLogin = new JcLogin(JcInformations.LOGIN_URL.getValue(), null, null, null);
+
+	}
+
+}
