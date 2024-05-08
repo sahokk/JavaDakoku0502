@@ -1,0 +1,12 @@
+package dakoku;
+
+import org.openqa.selenium.By;
+
+public class RDakoku extends Dakoku {
+
+	public RDakoku(String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut, By dakokuListButton) {
+		super(dakokuUrl, dakokuButtonIn, dakokuButtonOut, dakokuListButton);
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+}

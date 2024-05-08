@@ -1,0 +1,19 @@
+package dakoku;
+
+import org.openqa.selenium.By;
+
+public class RDakoku extends Dakoku {
+	private By dakokuListButton;
+
+	public RDakoku(String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut, By dakokuListButton) {
+		super(dakokuUrl, dakokuButtonIn, dakokuButtonOut);
+		this.dakokuListButton = dakokuListButton;
+	}
+
+	@Override
+	public void pushDakokuListButton() {
+		getDriver().findElement(dakokuListButton).click();
+
+	}
+
+}

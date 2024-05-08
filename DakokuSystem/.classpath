@@ -92,5 +92,6 @@
 	<classpathentry kind="lib" path="src/lib/selenium-safari-driver-4.20.0-sources.jar"/>
 	<classpathentry kind="lib" path="src/lib/selenium-support-4.20.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/selenium-support-4.20.0-sources.jar"/>
+	<classpathentry kind="lib" path="mysql-connector-j-8.0.31.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

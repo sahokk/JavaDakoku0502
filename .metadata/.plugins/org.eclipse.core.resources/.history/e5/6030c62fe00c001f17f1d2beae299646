@@ -1,0 +1,5 @@
+package dakoku;
+
+public abstract class Dakoku {
+
+}

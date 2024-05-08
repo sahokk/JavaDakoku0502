@@ -1,0 +1,21 @@
+package login;
+
+import org.openqa.selenium.By;
+
+import utility.MyUrls;
+import utility.RInformations;
+
+public class RLogin extends Login {
+
+	private RLogin(String loginUrl, By loginIdField, By loginPassField, By loginButton) {
+		super(loginUrl, loginIdField, loginPassField, loginButton);
+	}
+
+	private static Login rLogin = new RLogin(MyUrls.R_LOGIN_URL.getValue(), RInformations.LOGIN_ID_FIELD.getValue(),
+			RInformations.LOGIN_PASS_FIELD.getValue(), RInformations.LOGIN_BUTTON_FIELD.getValue());
+
+	public static Login getInstance() {
+		return rLogin;
+	}
+
+}

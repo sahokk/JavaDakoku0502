@@ -1,0 +1,22 @@
+package sys;
+
+import dakoku.Dakoku;
+import db_control.DbControl;
+import login.Login;
+
+public class MainSystem {
+	private Login jcLogin = JcLogin.getInstance();
+	private Login rLogin;
+	private Dakoku jcDakoku;
+	private Dakoku rDakoku;
+	private DbControl jcInfoControl;
+	private DbControl rInfoControl;
+
+	public void login() {
+		jcLogin
+	}
+
+	public void Dakoku() {
+
+	}
+}

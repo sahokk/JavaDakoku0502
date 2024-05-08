@@ -1,0 +1,11 @@
+package dakoku;
+
+import org.openqa.selenium.By;
+
+import sys.WebControl;
+
+public abstract class Dakoku extends WebControl {
+	private String dakokuUrl;
+	private By dakokuButtonIn, dakokuButtonOut, dakokuListButton;
+
+}

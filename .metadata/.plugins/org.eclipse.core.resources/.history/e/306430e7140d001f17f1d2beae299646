@@ -1,0 +1,15 @@
+package utility;
+
+public enum DbTableNames {
+	JC_TABLE_NAME("jc_info"), R_TABLE_NAME("r_info");
+
+	private static String str;
+
+	private DbTableNames(String str) {
+		str = str;
+	}
+
+	public static String getValue() {
+		return str;
+	}
+}

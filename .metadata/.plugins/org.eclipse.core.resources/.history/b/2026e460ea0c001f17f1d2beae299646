@@ -1,0 +1,94 @@
+package gui;
+
+import java.awt.Button;
+import java.awt.Choice;
+import java.awt.Frame;
+import java.awt.Panel;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+public class MainFrame extends Frame implements ActionListener, ItemListener, WindowListener {
+	Panel centerPanel;
+
+	Button dakokuButton;
+	Button settingButton;
+
+	Choice dakokuItemChoice;
+	TextArea mainArea;
+
+	public MainFrame() {
+		dakokuButton = new Button("打刻");
+		mainArea = new TextArea(18, 80);
+		mainArea.setEditable(false);
+		centerPanel = new Panel();
+
+		centerPanel.add(dakokuButton);
+		centerPanel.add(mainArea);
+
+		dakokuButton.addActionListener(this);
+
+		addWindowListener(this);
+		add(centerPanel);
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		System.exit(0);
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == dakokuButton) {
+			mainArea.setText("nice");
+		}
+
+	}
+}

@@ -3,7 +3,7 @@ package utility;
 import org.openqa.selenium.By;
 
 public enum RInformations {
-	LOGIN_ID_FIELD(By.id("TxtUserId")), LOGIN_PASS_FIELD(By.id("TxtPassword")),
+	LOGIN_ID_FIELD(By.id("txbUserId")), LOGIN_PASS_FIELD(By.id("txbPassword")),
 	LOGIN_BUTTON_FIELD(By.xpath("/html/body/div/div/div/form/div[5]/div[1]/button")),
 	DAKOKU_LIST_BUTTON(By.id("menuStamp")), DAKOKU_BUTTON_IN(By.id("btnStartTime")),
 	DAKOKU_BUTTON_OUT(By.id("btnEndTime"));

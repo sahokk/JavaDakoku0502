@@ -1,37 +1,35 @@
 package login;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public abstract class Login {
+import sys.WebControl;
+
+public abstract class Login extends WebControl {
 	private String loginUrl;
 	private By loginIdField, loginPassField, loginButton;
-	protected WebDriver driver;
+	private String loginId, loginPass;
 
-	public Login(String loginUrl, By loginIdField, By loginPassField, By loginButton) {
+	protected Login(String loginUrl, By loginIdField, By loginPassField, By loginButton) {
+		super();
 		this.loginUrl = loginUrl;
 		this.loginIdField = loginIdField;
 		this.loginPassField = loginPassField;
 		this.loginButton = loginButton;
-		this.driver = new ChromeDriver();
 	}
 
 	private void accessLoginPage() {
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\user\\Documents\\JavaDakoku0502\\DakokuSystem\\src\\exe\\chromedriver.exe");
 		getDriver().get(loginUrl);
 	}
 
 	private void sendLoginIdToField() {
 		WebElement loginIdElement = getDriver().findElement(loginIdField);
-		loginIdElement.sendKeys("");
+		loginIdElement.sendKeys(loginId);
 	}
 
 	private void sendLoginPassToField() {
 		WebElement loginPassElement = getDriver().findElement(loginPassField);
-		loginPassElement.sendKeys("");
+		loginPassElement.sendKeys(loginPass);
 	}
 
 	private void pushLoginButton() {
@@ -45,8 +43,12 @@ public abstract class Login {
 		this.pushLoginButton();
 	}
 
-	public WebDriver getDriver() {
-		return driver;
+	protected void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+
+	protected void setLoginPass(String loginPass) {
+		this.loginPass = loginPass;
 	}
 
 }

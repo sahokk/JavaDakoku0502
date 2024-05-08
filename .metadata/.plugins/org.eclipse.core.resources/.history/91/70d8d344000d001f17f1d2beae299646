@@ -1,0 +1,61 @@
+package db_control;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import utility.DbColumns;
+
+public class JcInfoControl extends DbControl {
+
+	private static String sql;
+	private static String colmunsName;
+	private static String dbName = "jc_info";
+	private PreparedStatement sqlStmt = null;
+	private ResultSet res = null;
+
+	public JcInfoControl() {
+		super();
+		sql = "SELECT ? FROM " + dbName;
+
+		super.connectDB();
+	}
+
+	@Override
+	protected String getLoginId() {
+		colmunsName = DbColumns.LOGIN_ID.getValue();
+		try {
+			sqlStmt = sqlCon.prepareStatement(sql);
+			sqlStmt.setString(1, colmunsName);
+			res = sqlStmt.executeQuery();
+			if (res.next()) {
+				System.out.println(res.getString(colmunsName));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB(res, sqlStmt, sqlCon);
+		}
+
+		return null;
+	}
+
+	@Override
+	protected String getLoginPass() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	protected void setLoginId(String loginId) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	protected void setLoginPass(String loginPass) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+}

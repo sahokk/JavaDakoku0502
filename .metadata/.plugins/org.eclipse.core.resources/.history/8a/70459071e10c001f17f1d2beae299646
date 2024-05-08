@@ -1,0 +1,19 @@
+package dakoku;
+
+import org.openqa.selenium.By;
+
+import sys.WebControl;
+
+public abstract class Dakoku extends WebControl {
+	private String dakokuUrl;
+	private By dakokuButtonIn, dakokuButtonOut, dakokuListButton;
+	public Dakoku(String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut, By dakokuListButton) {
+		super();
+		this.dakokuUrl = dakokuUrl;
+		this.dakokuButtonIn = dakokuButtonIn;
+		this.dakokuButtonOut = dakokuButtonOut;
+		this.dakokuListButton = dakokuListButton;
+	}
+
+
+}

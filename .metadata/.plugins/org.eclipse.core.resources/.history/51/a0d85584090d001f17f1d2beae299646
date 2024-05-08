@@ -1,0 +1,9 @@
+package db_control;
+
+public class RInfoControl extends DbControl {
+
+	public RInfoControl() {
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+}

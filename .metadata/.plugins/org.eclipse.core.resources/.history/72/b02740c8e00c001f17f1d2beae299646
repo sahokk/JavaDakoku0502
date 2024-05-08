@@ -1,0 +1,52 @@
+package login;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public abstract class Login {
+	private String loginUrl;
+	private By loginIdField, loginPassField, loginButton;
+	protected WebDriver driver;
+
+	public Login(String loginUrl, By loginIdField, By loginPassField, By loginButton) {
+		this.loginUrl = loginUrl;
+		this.loginIdField = loginIdField;
+		this.loginPassField = loginPassField;
+		this.loginButton = loginButton;
+		this.driver = new ChromeDriver();
+	}
+
+	private void accessLoginPage() {
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\user\\Documents\\JavaDakoku0502\\DakokuSystem\\src\\exe\\chromedriver.exe");
+		getDriver().get(loginUrl);
+	}
+
+	private void sendLoginIdToField() {
+		WebElement loginIdElement = getDriver().findElement(loginIdField);
+		loginIdElement.sendKeys("");
+	}
+
+	private void sendLoginPassToField() {
+		WebElement loginPassElement = getDriver().findElement(loginPassField);
+		loginPassElement.sendKeys("");
+	}
+
+	private void pushLoginButton() {
+		getDriver().findElement(loginButton).click();
+	}
+
+	public void login() {
+		this.accessLoginPage();
+		this.sendLoginIdToField();
+		this.sendLoginPassToField();
+		this.pushLoginButton();
+	}
+
+	public WebDriver getDriver() {
+		return driver;
+	}
+
+}

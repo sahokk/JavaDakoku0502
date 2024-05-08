@@ -1,0 +1,12 @@
+package db_control;
+
+public class RInfoControl extends DbControl {
+
+	private static final String TABLE_NAME = "r_info";
+
+	public RInfoControl() {
+		super();
+		super.connectDB();
+	}
+
+}

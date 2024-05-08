@@ -1,0 +1,41 @@
+package db_control;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import utility.DbColumns;
+
+public class JcInfoControl extends DbControl {
+
+	private static String colmunsName;
+	private static final String dbName = "jc_info";
+	private PreparedStatement sqlStmt = null;
+	private ResultSet res = null;
+
+	public JcInfoControl() {
+		super();
+		super.connectDB();
+	}
+
+	@Override
+	protected String getInfo(DbColumns columns) {
+		String sql = "SELECT ? FROM " + dbName + ";";
+		colmunsName = columns.getValue();
+		try {
+			sqlStmt = sqlCon.prepareStatement(sql);
+			sqlStmt.setString(1, colmunsName);
+			res = sqlStmt.executeQuery();
+			if (res.next()) {
+				return res.getString(colmunsName);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB(res, sqlStmt, sqlCon);
+		}
+		return null;
+
+	}
+
+}

@@ -1,0 +1,16 @@
+package db_control;
+
+import utility.DbColumns;
+import utility.DbTableNames;
+
+public class RInfoControl extends DbControl {
+
+	private static final String TABLE_NAME = "r_info";
+
+	public RInfoControl() {
+		super();
+		super.setTableName(DbTableNames.R_TABLE_NAME.getValue());
+	}
+
+
+}

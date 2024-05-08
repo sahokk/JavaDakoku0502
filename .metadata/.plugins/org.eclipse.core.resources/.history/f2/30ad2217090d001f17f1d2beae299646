@@ -1,0 +1,47 @@
+package db_control;
+
+import static db_control.DbControl.sqlCon;
+
+import java.sql.SQLException;
+
+import utility.DbColumns;
+
+public class JcInfoControl extends DbControl {
+
+	private static final String TABLE_NAME = "jc_info";
+
+	public JcInfoControl() {
+		super();
+		super.connectDB();
+	}
+
+	@Override
+	protected void setInfo(String loginId, String loginPass) {
+
+	}
+
+	@Override
+	protected void updateInfo(String loginId, String loginPass) {
+		// 先にログインテストする
+		String sql = "UPDATE " + TABLE_NAME + " SET ? = ?, ? = ?;";
+		try {
+			sqlStmt = sqlCon.prepareStatement(sql);
+			sqlStmt.setString(1, DbColumns.LOGIN_ID.getValue());
+			sqlStmt.setString(2, loginId);
+			sqlStmt.setString(3, DbColumns.LOGIN_PASS.getValue());
+			sqlStmt.setString(4, loginPass);
+
+			int no = sqlStmt.executeUpdate();
+			if (no == 1) {
+//				登録完了
+			} else {
+//				登録失敗
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB(res, sqlStmt, sqlCon);
+		}
+	}
+
+}
