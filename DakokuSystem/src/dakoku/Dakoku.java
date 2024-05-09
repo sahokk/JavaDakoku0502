@@ -10,24 +10,23 @@ public abstract class Dakoku extends WebControl {
 	private By dakokuButtonIn, dakokuButtonOut;
 
 	public Dakoku(String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut) {
-		super();
 		this.dakokuUrl = dakokuUrl;
 		this.dakokuButtonIn = dakokuButtonIn;
 		this.dakokuButtonOut = dakokuButtonOut;
 	}
 
 	private void accessDakokuPage() {
-		getDriver().get(dakokuUrl);
+		driver.navigate().to(dakokuUrl);
 	}
 
 	public abstract void pushDakokuListButton();
 
 	private void pushDakokuButtonIn() {
-		getDriver().findElement(dakokuButtonIn).click();
+		driver.findElement(dakokuButtonIn).click();
 	}
 
 	private void pushDakokuButtonOut() {
-		getDriver().findElement(dakokuButtonOut).click();
+		driver.findElement(dakokuButtonOut).click();
 	}
 
 	public void dakoku(Dakokustate dakokustate) {

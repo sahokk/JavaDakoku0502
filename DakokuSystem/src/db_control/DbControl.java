@@ -28,7 +28,7 @@ public abstract class DbControl {
 	private static void connectDB() {
 		try {
 			sqlCon = DriverManager.getConnection(dbUrl, sqlUserID, sqlPassword);
-			System.out.println("success");
+			System.out.println("DB connect success");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -52,11 +52,10 @@ public abstract class DbControl {
 
 	public String getInfo(DbColumns columns) {
 		connectDB();
-		String sql = "SELECT ? FROM " + tableName + ";";
 		colmunsName = columns.getValue();
+		String sql = "SELECT " + colmunsName + " FROM " + tableName + ";";
 		try {
 			sqlStmt = sqlCon.prepareStatement(sql);
-			sqlStmt.setString(1, colmunsName);
 			res = sqlStmt.executeQuery();
 			if (res.next()) {
 				return res.getString(colmunsName);

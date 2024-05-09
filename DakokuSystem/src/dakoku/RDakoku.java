@@ -18,7 +18,7 @@ public class RDakoku extends Dakoku {
 
 	@Override
 	public void pushDakokuListButton() {
-		getDriver().findElement(dakokuListButton).click();
+		driver.findElement(dakokuListButton).click();
 
 	}
 

@@ -62,6 +62,8 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 		dakokuButton.addActionListener(this);
 		settingButton.addActionListener(this);
+		rCheckbox.addItemListener(this);
+		jcCheckbox.addItemListener(this);
 
 		add(northPanel, BorderLayout.NORTH);
 		add(southPanel, BorderLayout.SOUTH);

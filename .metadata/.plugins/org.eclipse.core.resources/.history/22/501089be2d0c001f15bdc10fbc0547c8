@@ -1,6 +1,0 @@
-package login;
-package utility;
-
-public abstract class Login {
-
-}

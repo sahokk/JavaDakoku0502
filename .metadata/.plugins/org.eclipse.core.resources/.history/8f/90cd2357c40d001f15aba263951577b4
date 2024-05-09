@@ -1,0 +1,14 @@
+package sys;
+
+import org.openqa.selenium.WebDriver;
+
+public abstract class WebControl {
+	protected static WebDriver driver;
+
+	protected WebControl() {
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\user\\Documents\\JavaDakoku0502\\DakokuSystem\\src\\exe\\chromedriver.exe");
+		driver = new ChromeDriver()
+		driver.close();
+	}
+}

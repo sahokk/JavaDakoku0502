@@ -3,16 +3,12 @@ package sys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class WebControl {
-	private WebDriver driver;
+public abstract class WebControl {
+	protected static WebDriver driver;
 
 	public WebControl() {
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\user\\Documents\\JavaDakoku0502\\DakokuSystem\\src\\exe\\chromedriver.exe");
-		this.driver = new ChromeDriver();
-	}
-
-	public WebDriver getDriver() {
-		return driver;
+		System.setProperty("webdriver.chrome.driver", "src/exe/chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.close();
 	}
 }

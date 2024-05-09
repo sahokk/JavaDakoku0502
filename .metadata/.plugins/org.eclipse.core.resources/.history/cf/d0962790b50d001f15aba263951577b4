@@ -1,0 +1,19 @@
+package db_control;
+
+import net.bytebuddy.asm.Advice.This;
+import utility.DbTableNames;
+
+public class RInfoControl extends DbControl {
+
+	private RInfoControl rInfoControl = new RInfoControl();
+
+	private RInfoControl() {
+		super();
+		super.setTableName(DbTableNames.R_TABLE_NAME.getValue());
+	}
+
+	public RInfoControl getInstance() {
+		return this.rInfoControl;
+	}
+
+}
