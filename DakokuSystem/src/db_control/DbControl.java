@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import utility.DbColumns;
-
 public abstract class DbControl {
 	private String colmunsName;
 	private String tableName;
@@ -23,6 +21,7 @@ public abstract class DbControl {
 
 	public DbControl() {
 		flagLogin = false;
+		this.colmunsName = "";
 	}
 
 	private static void connectDB() {
@@ -68,46 +67,41 @@ public abstract class DbControl {
 		return null;
 	}
 
-	public void setInfo(String loginId, String loginPass) {
-		// 先にログインテストする
+	public String setInfo(String loginId, String loginPass) {
 		connectDB();
-		String sql = "INSERT INTO " + tableName + " values (?, ?);";
+		String sql = "INSERT INTO " + tableName + " values ('?', '?');";
 		try {
 			sqlStmt = sqlCon.prepareStatement(sql);
 			sqlStmt.setString(1, DbColumns.LOGIN_ID.getValue());
 			sqlStmt.setString(2, DbColumns.LOGIN_PASS.getValue());
 			int no = sqlStmt.executeUpdate();
 			if (no == 1) {
-//				登録完了
+				return "情報の登録に成功しました。" + tableName;
 			} else {
-//				登録失敗
+				return "情報の登録に失敗しました。" + tableName;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return e.getMessage();
 		} finally {
 			closeDB(res, sqlStmt, sqlCon);
 		}
 	}
 
-	public void updateInfo(String loginId, String loginPass) {
-		// 先にログインテストする
+	public String updateInfo(String loginId, String loginPass) {
 		connectDB();
-		String sql = "UPDATE " + tableName + " SET ? = ?, ? = ?;";
+		String sql = "UPDATE " + tableName + " SET " + DbColumns.LOGIN_ID.getValue() + "='" + loginId + "', "
+				+ DbColumns.LOGIN_PASS.getValue() + "='" + loginPass + "';";
 		try {
 			sqlStmt = sqlCon.prepareStatement(sql);
-			sqlStmt.setString(1, DbColumns.LOGIN_ID.getValue());
-			sqlStmt.setString(2, loginId);
-			sqlStmt.setString(3, DbColumns.LOGIN_PASS.getValue());
-			sqlStmt.setString(4, loginPass);
 
 			int no = sqlStmt.executeUpdate();
 			if (no == 1) {
-//						登録完了
+				return "情報の更新に成功しました。" + tableName;
 			} else {
-//						登録失敗
+				return "情報の更新に失敗しました。" + tableName;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return e.getMessage();
 		} finally {
 			closeDB(res, sqlStmt, sqlCon);
 		}

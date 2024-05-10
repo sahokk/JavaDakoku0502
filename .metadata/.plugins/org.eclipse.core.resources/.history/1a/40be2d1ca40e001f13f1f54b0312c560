@@ -1,0 +1,16 @@
+package db_control;
+
+public class RInfoControl extends DbControl {
+
+	private static DbControl dbControl = new RInfoControl();
+
+	private RInfoControl() {
+		super();
+		super.setTableName(DbTableNames.R_TABLE_NAME.getValue());
+	}
+
+	public static DbControl getInstance() {
+		return dbControl;
+	}
+
+}

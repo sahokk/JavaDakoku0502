@@ -1,6 +1,6 @@
 package run;
 
-import gui.MainFrame;
+import ui_control.MainFrame;
 
 public class Main {
 

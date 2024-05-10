@@ -2,11 +2,11 @@ package login;
 
 import org.openqa.selenium.By;
 
+import db_control.DbColumns;
 import db_control.DbControl;
 import db_control.RInfoControl;
-import utility.DbColumns;
+import db_control.RInformations;
 import utility.MyUrls;
-import utility.RInformations;
 
 public class RLogin extends Login {
 
@@ -23,10 +23,10 @@ public class RLogin extends Login {
 	}
 
 	@Override
-	public void login() {
+	public boolean login() {
 		super.setLoginId(dbControl.getInfo(DbColumns.LOGIN_ID));
 		super.setLoginPass(dbControl.getInfo(DbColumns.LOGIN_PASS));
-		super.login();
+		return super.login();
 	}
 
 }

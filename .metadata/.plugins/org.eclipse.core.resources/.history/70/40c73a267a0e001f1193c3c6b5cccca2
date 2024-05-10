@@ -1,0 +1,17 @@
+package web;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class WebControl {
+	private static ChromeOptions chromeOptions = new ChromeOptions();
+	chromeOptions.addArguments("--incognito");
+	private static WebDriver driver = new ChromeDriver(chromeOptions);
+
+	public WebControl() {
+		System.setProperty("webdriver.chrome.driver", "src/web/chromedriver.exe");
+
+		driver = new ChromeDriver(chromeOptions);
+	}
+}

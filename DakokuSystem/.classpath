@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="exe/chrome-win64/" kind="src" path="src"/>
+	<classpathentry excluding="exe/chrome-win64/|exe/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -93,5 +93,6 @@
 	<classpathentry kind="lib" path="src/lib/selenium-support-4.20.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/selenium-support-4.20.0-sources.jar"/>
 	<classpathentry kind="lib" path="mysql-connector-j-8.0.31.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Downloads/chrome-win64/chrome-win64-124.0.6367.201"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

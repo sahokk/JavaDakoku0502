@@ -2,30 +2,46 @@ package dakoku;
 
 import org.openqa.selenium.By;
 
+import db_control.RInformations;
 import login.RLogin;
 import utility.Dakokustate;
 import utility.MyUrls;
-import utility.RInformations;
 
 public class RDakoku extends Dakoku {
 	private By dakokuListButton;
+	private String dakokuUrl;
 
 	public RDakoku() {
-		super(MyUrls.R_DAKOKU_URL.getValue(), RInformations.DAKOKU_BUTTON_IN.getValue(),
-				RInformations.DAKOKU_BUTTON_OUT.getValue());
+		super(RInformations.DAKOKU_BUTTON_IN.getValue(), RInformations.DAKOKU_BUTTON_OUT.getValue());
 		this.dakokuListButton = RInformations.DAKOKU_LIST_BUTTON.getValue();
+		this.dakokuUrl = MyUrls.R_DAKOKU_URL.getValue();
+		super.driver = RLogin.getInstance().getDriver();
+	}
+
+	/**
+	 * @param dakokustate: Dakokusutate 出勤か退勤か ログイン実行できれば、引数に応じて打刻をする。
+	 *                     できなければログイン失敗を返す。
+	 */
+	@Override
+	public boolean dakoku(Dakokustate dakokustate) {
+		if (RLogin.getInstance().login()) {
+			return super.dakoku(dakokustate);
+		} else {
+
+			return false;
+		}
+
 	}
 
 	@Override
-	public void pushDakokuListButton() {
+	protected void pushDakokuListButton() {
 		driver.findElement(dakokuListButton).click();
-
 	}
 
 	@Override
-	public void dakoku(Dakokustate dakokustate) {
-		RLogin.getInstance().login();
-		super.dakoku(dakokustate);
+	protected void accessDakokuPage() {
+		driver.navigate().to(this.dakokuUrl);
+
 	}
 
 }

@@ -1,6 +1,6 @@
 package db_control;
 
-import utility.DbTableNames;
+import login.JcLogin;
 
 public class JcInfoControl extends DbControl {
 
@@ -13,6 +13,19 @@ public class JcInfoControl extends DbControl {
 
 	public static DbControl getInstance() {
 		return dbControl;
+	}
+
+	@Override
+	public String setInfo(String loginId, String loginPass) {
+		boolean flagLogin = JcLogin.getInstance().loginTest(loginId, loginPass);
+		return (flagLogin ? "ログインテストに成功しました。" : "ログインテストに失敗しました。") + super.setInfo(loginId, loginPass);
+
+	}
+
+	@Override
+	public String updateInfo(String loginId, String loginPass) {
+		boolean flagLogin = JcLogin.getInstance().loginTest(loginId, loginPass);
+		return (flagLogin ? "ログインテストに成功しました。" : "ログインテストに失敗しました。") + super.updateInfo(loginId, loginPass);
 	}
 
 }

@@ -1,25 +1,25 @@
 package dakoku;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.NoSuchDriverException;
 
-import sys.WebControl;
 import utility.Dakokustate;
 
-public abstract class Dakoku extends WebControl {
-	private String dakokuUrl;
-	private By dakokuButtonIn, dakokuButtonOut;
+public abstract class Dakoku {
 
-	public Dakoku(String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut) {
-		this.dakokuUrl = dakokuUrl;
+	private By dakokuButtonIn, dakokuButtonOut;
+	protected WebDriver driver;
+	private boolean flagDakoku = false;
+
+	public Dakoku(By dakokuButtonIn, By dakokuButtonOut) {
 		this.dakokuButtonIn = dakokuButtonIn;
 		this.dakokuButtonOut = dakokuButtonOut;
 	}
 
-	private void accessDakokuPage() {
-		driver.navigate().to(dakokuUrl);
-	}
+	protected abstract void accessDakokuPage();
 
-	public abstract void pushDakokuListButton();
+	protected abstract void pushDakokuListButton();
 
 	private void pushDakokuButtonIn() {
 		driver.findElement(dakokuButtonIn).click();
@@ -29,21 +29,28 @@ public abstract class Dakoku extends WebControl {
 		driver.findElement(dakokuButtonOut).click();
 	}
 
-	public void dakoku(Dakokustate dakokustate) {
-		this.accessDakokuPage();
-		this.pushDakokuListButton();
-		switch (dakokustate) {
-		case IN: {
-			this.pushDakokuButtonIn();
-			break;
+	public boolean dakoku(Dakokustate dakokustate) {
+		try {
+			this.accessDakokuPage();
+			this.pushDakokuListButton();
+			switch (dakokustate) {
+			case IN: {
+				this.pushDakokuButtonIn();
+				break;
+			}
+			case OUT: {
+				this.pushDakokuButtonOut();
+				break;
+			}
+			}
+			flagDakoku = true;
+		} catch (NoSuchDriverException e) {
+			e.printStackTrace();
+		} finally {
+			driver.quit();
 		}
-		case OUT: {
-			this.pushDakokuButtonOut();
-			break;
-		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + dakokustate);
-		}
+
+		return flagDakoku;
 	}
 
 }

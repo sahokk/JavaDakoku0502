@@ -1,0 +1,50 @@
+package dakoku;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import utility.Dakokustate;
+
+public abstract class Dakoku {
+	private String dakokuUrl;
+	private By dakokuButtonIn, dakokuButtonOut;
+
+	public Dakoku(String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut) {
+		this.dakokuUrl = dakokuUrl;
+		this.dakokuButtonIn = dakokuButtonIn;
+		this.dakokuButtonOut = dakokuButtonOut;
+	}
+
+	private void accessDakokuPage() {
+		driver.getInstance().navigate().to(dakokuUrl);
+	}
+
+	public abstract void pushDakokuListButton();
+
+	private void pushDakokuButtonIn() {
+		driver.findElement(dakokuButtonIn).click();
+	}
+
+	private void pushDakokuButtonOut() {
+		driver.findElement(dakokuButtonOut).click();
+	}
+
+	public void dakoku(Dakokustate dakokustate) {
+		this.accessDakokuPage();
+		this.pushDakokuListButton();
+		switch (dakokustate) {
+		case IN: {
+			this.pushDakokuButtonIn();
+			break;
+		}
+		case OUT: {
+			this.pushDakokuButtonOut();
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + dakokustate);
+		}
+		driver.quit();
+	}
+
+}
