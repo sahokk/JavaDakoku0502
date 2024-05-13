@@ -8,25 +8,7 @@ package utility {
         R_DAKOKU_URL
     }
 
-    enum JcInformations {
     
-        JC_LOGIN_ID_FIELD
-        JC_LOGIN_PASS_FIELD
-        JC_LOGIN_BUTTON_FIELD
-
-        JC_DAKOKU_BUTTON_IN
-        JC_DAKOKU_BUTTON_OUT
-    
-    }
-enum RInformations {
-        R_LOGIN_ID_FIELD
-        R_LOGIN_PASS_FIELD
-        R_LOGIN_BUTTON_FIELD
-        
-        R_DAKOKU_LIST_BUTTON
-        R_DAKOKU_BUTTON_IN
-        R_DAKOKU_BUTTON_OUT
-    }
 }
 package login {
     abstract class Login {
@@ -65,6 +47,59 @@ package run {
 
 package dakoku {
     abstract class Dakoku {
+        - driver: Webdriver
+        - webControl: WebControl
+        - login: Login
+        - dakokuUrl : String
+        - dakokuButtonIn: By
+        - dakokuButtonOut:By
+        - flagDakoku: boolean
+
+        + Dakoku(WebControl webControl, Login login, String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut)
+        ~ accsesDakokuPage(): void
+        ~ abstract pushDakokuListButton(): void
+        - pushDakokuButtonIn(): void
+        - pushDakokuButtonOut(): void
+        + dakoku(Dakokustate dakokustate): boolean
+    } 
+
+    class JcDakoku extends Dakoku {
+        - webControl: WebControl
+        + JcDakoku(Login jcLogin)
+        ~ pushDakokuListButton: void
+    }
+
+    class RDakoku extends Dakoku {
+        - dakokuListButton: By
+        - webControl: WebControl
+        + RDakoku(Login rLogin)
+        ~ pushDakokuListButton: void
+    }
+}
+
+package db_control {
+    enum JcInformations {
+    
+        JC_LOGIN_ID_FIELD
+        JC_LOGIN_PASS_FIELD
+        JC_LOGIN_BUTTON_FIELD
+
+        JC_DAKOKU_BUTTON_IN
+        JC_DAKOKU_BUTTON_OUT
+    
+    }
+
+    enum RInformations {
+        R_LOGIN_ID_FIELD
+        R_LOGIN_PASS_FIELD
+        R_LOGIN_BUTTON_FIELD
+        
+        R_DAKOKU_LIST_BUTTON
+        R_DAKOKU_BUTTON_IN
+        R_DAKOKU_BUTTON_OUT
+    }
+
+    enum DbColumns {
         
     }
 }
