@@ -57,21 +57,21 @@ package dakoku {
 
         + Dakoku(WebControl webControl, Login login, String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut)
         ~ accsesDakokuPage(): void
-        ~ abstract pushDakokuListButton(): void
+        ~ {abstract} pushDakokuListButton() : void
         - pushDakokuButtonIn(): void
         - pushDakokuButtonOut(): void
         + dakoku(Dakokustate dakokustate): boolean
     } 
 
     class JcDakoku extends Dakoku {
-        - webControl: WebControl
+        - {static} webControl: WebControl
         + JcDakoku(Login jcLogin)
         ~ pushDakokuListButton: void
     }
 
     class RDakoku extends Dakoku {
         - dakokuListButton: By
-        - webControl: WebControl
+        - {static} webControl: WebControl
         + RDakoku(Login rLogin)
         ~ pushDakokuListButton: void
     }
