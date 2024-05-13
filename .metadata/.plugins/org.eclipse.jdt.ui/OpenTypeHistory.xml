@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-    <typeInfo handle="=DakokuSystem/src&lt;login{Login.java[Login" modifiers="1025" timestamp="1715325913930"/>
-    <typeInfo handle="=DakokuSystem/src&lt;dakoku{Dakoku.java[Dakoku" modifiers="1025" timestamp="1715323557110"/>
-    <typeInfo handle="=DakokuSystem/src&lt;db_control{DbControl.java[DbControl" modifiers="1025" timestamp="1715323736407"/>
+    <typeInfo handle="=DakokuSystem/src&lt;login{Login.java[Login" modifiers="1025" timestamp="1715585109434"/>
+    <typeInfo handle="=DakokuSystem/src&lt;dakoku{Dakoku.java[Dakoku" modifiers="1025" timestamp="1715586785470"/>
+    <typeInfo handle="=DakokuSystem/src&lt;db_control{DbControl.java[DbControl" modifiers="1025" timestamp="1715585199863"/>
+    <typeInfo handle="=DakokuSystem/src&lt;web_control{WebControl.java[WebControl" modifiers="1025" timestamp="1715588326506"/>
 </typeInfoHistroy>
