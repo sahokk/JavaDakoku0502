@@ -1,0 +1,9 @@
+package web_control;
+
+public class JcWebControl extends WebControl {
+
+	public JcWebControl() {
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+}

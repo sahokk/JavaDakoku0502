@@ -8,7 +8,6 @@ public class Main {
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setBounds(5, 5, 900, 500);
 		mainFrame.setVisible(true);
-
 	}
 
 }

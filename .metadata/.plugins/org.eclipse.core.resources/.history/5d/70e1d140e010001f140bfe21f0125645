@@ -1,0 +1,29 @@
+package dakoku;
+
+import org.openqa.selenium.WebDriver;
+
+import db_control.JcInformations;
+import login.Login;
+import web_control.JcWebControl;
+
+public class JcDakoku extends Dakoku {
+
+	private static WebDriver driver = JcWebControl.getInstance().getDriver();
+
+	public JcDakoku(Login jcLogin) {
+		super(driver, jcLogin, JcInformations.DAKOKU_BUTTON_IN.getValue(),
+				JcInformations.DAKOKU_BUTTON_OUT.getValue());
+
+	}
+
+	@Override
+	protected void accessDakokuPage() {
+	}
+
+	@Override
+	protected void pushDakokuListButton() {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+}

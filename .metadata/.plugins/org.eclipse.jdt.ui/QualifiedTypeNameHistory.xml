@@ -33,9 +33,6 @@
     <fullyQualifiedTypeName name="java.awt.GridLayout"/>
     <fullyQualifiedTypeName name="java.awt.Checkbox"/>
     <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
-    <fullyQualifiedTypeName name="login.Login"/>
-    <fullyQualifiedTypeName name="login.JcLogin"/>
-    <fullyQualifiedTypeName name="login.RLogin"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="dakoku.JcDakoku"/>
     <fullyQualifiedTypeName name="utility.JcInformations"/>
@@ -43,12 +40,9 @@
     <fullyQualifiedTypeName name="utility.MyUrls"/>
     <fullyQualifiedTypeName name="utility.Dakokustate"/>
     <fullyQualifiedTypeName name="dakoku.RDakoku"/>
-    <fullyQualifiedTypeName name="db_control.DbControl"/>
     <fullyQualifiedTypeName name="net.bytebuddy.asm.Advice.This"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="utility.DbTableNames"/>
     <fullyQualifiedTypeName name="db_control.JcInfoControl"/>
-    <fullyQualifiedTypeName name="utility.DbColumns"/>
     <fullyQualifiedTypeName name="db_control.RInfoControl"/>
     <fullyQualifiedTypeName name="sys.MainSystem"/>
     <fullyQualifiedTypeName name="org.openqa.selenium.firefox.FirefoxDriver"/>
@@ -57,5 +51,13 @@
     <fullyQualifiedTypeName name="org.openqa.selenium.chrome.ChromeDriver"/>
     <fullyQualifiedTypeName name="org.openqa.selenium.remote.RemoteWebDriver"/>
     <fullyQualifiedTypeName name="web.WebControl"/>
+    <fullyQualifiedTypeName name="utility.DbColumns"/>
+    <fullyQualifiedTypeName name="gui.SettingDialog"/>
     <fullyQualifiedTypeName name="org.openqa.selenium.WebDriver"/>
+    <fullyQualifiedTypeName name="login.Login"/>
+    <fullyQualifiedTypeName name="login.RLogin"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.remote.NoSuchDriverException"/>
+    <fullyQualifiedTypeName name="db_control.DbControl"/>
+    <fullyQualifiedTypeName name="login.JcLogin"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,25 @@
+package login;
+
+import db_control.DbColumns;
+import db_control.DbControl;
+import db_control.JcInfoControl;
+import db_control.JcInformations;
+import utility.MyUrls;
+
+public class JcLogin extends Login {
+
+	private static DbControl dbControl = JcInfoControl.getInstance();
+
+	public JcLogin() {
+		super(MyUrls.JC_LOGIN_URL.getValue(), JcInformations.LOGIN_ID_FIELD.getValue(),
+				JcInformations.LOGIN_PASS_FIELD.getValue(), JcInformations.LOGIN_BUTTON_FIELD.getValue(), dbControl.getInfo(DbColumns.LOGIN_ID), dbControl.getInfo(DbColumns.LOGIN_PASS));
+	}
+
+	@Override
+	public boolean login() {
+		super.setLoginId(dbControl.getInfo(DbColumns.LOGIN_ID));
+		super.setLoginPass(dbControl.getInfo(DbColumns.LOGIN_PASS));
+		return super.login();
+	}
+
+}

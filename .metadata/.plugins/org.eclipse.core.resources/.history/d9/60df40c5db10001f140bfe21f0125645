@@ -1,0 +1,26 @@
+package web_control;
+
+import dakoku.JcDakoku;
+import db_control.JcInfoControl;
+import login.JcLogin;
+import utility.MyUrls;
+
+public class JcWebControl extends WebControl {
+
+	private static JcWebControl webControl = new JcWebControl();
+	private static JcLogin jcLogin = new JcLogin();
+	private static JcDakoku jcDakoku = new JcDakoku(jcLogin);
+	private static JcInfoControl jcInfoControl = new JcInfoControl();
+
+	private JcWebControl() {
+		super();
+		setPageUrl(MyUrls.JC_LOGIN_URL.getValue());
+		accessLoginPage();
+		jcLogin.
+	}
+
+	public static JcWebControl getInstance() {
+		return webControl;
+	}
+
+}

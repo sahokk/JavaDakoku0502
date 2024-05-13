@@ -1,6 +1,9 @@
 package sys;
 
 import java.awt.Dialog;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import dakoku.Dakoku;
 import dakoku.JcDakoku;
@@ -12,26 +15,37 @@ import login.JcLogin;
 import login.Login;
 import login.RLogin;
 import ui_control.MainFrame;
-import ui_control.SettingDialog;
 import utility.Dakokustate;
+import web_control.SettingDialog;
 
 public class MainSystem {
 	private static Login jcLogin;
 	private static Login rLogin;
 	private static Dakoku jcDakoku;
 	private static Dakoku rDakoku;
-	private static DbControl jcInfoControl;
-	private static DbControl rInfoControl;
-	// private static WebDriver driver;
+	private DbControl jcInfoControl;
+	private DbControl rInfoControl;
 	private static Dakokustate dakokustate;
 	private static SettingDialog sd;
+	private SimpleDateFormat dateFormat;
+	private Calendar calendar;
 
 	public MainSystem() {
-		jcLogin = JcLogin.getInstance();
-		rLogin = RLogin.getInstance();
-		jcInfoControl = JcInfoControl.getInstance();
-		rInfoControl = RInfoControl.getInstance();
-		// driver = WebControl.getInstance();
+		jcInfoControl = new JcInfoControl();
+		jcLogin = new JcLogin(jcInfoControl);
+
+		rInfoControl = new RInfoControl();
+		rLogin = new RLogin(rInfoControl);
+		dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+
+	}
+
+	public void finishDriver() {
+		jcLogin.getDriver().close();
+		jcLogin.getDriver().quit();
+		rLogin.getDriver().close();
+		rLogin.getDriver().quit();
+
 	}
 
 	public void doLogin(boolean jc, boolean r) {
@@ -44,32 +58,40 @@ public class MainSystem {
 
 	}
 
-	public void doDakoku(boolean jc, boolean r) {
-//		時間によってステートを変える　出社か退社か
-		dakokustate = Dakokustate.OUT;
+	public String doDakoku(boolean jc, boolean r) {
+		String res = "";
+		calendar = Calendar.getInstance();
+		dakokustate = calendar.get(Calendar.AM_PM) == Calendar.AM ? Dakokustate.IN : Dakokustate.OUT;
+
 		if (jc) {
-			jcDakoku = new JcDakoku();
-			jcDakoku.dakoku(dakokustate);
+			jcDakoku = new JcDakoku(jcLogin);
+			res += "Jc:" + (jcDakoku.dakoku(dakokustate) ? "打刻完了" : "打刻失敗") + dateFormat.format(new Date())
+					+ dakokustate.getValue() + "\n";
 		}
 		if (r) {
-			rDakoku = new RDakoku();
-			rDakoku.dakoku(dakokustate);
+			rDakoku = new RDakoku(rLogin);
+			res += "R:" + (rDakoku.dakoku(dakokustate) ? "打刻完了" : "打刻失敗") + dateFormat.format(new Date())
+					+ dakokustate.getValue() + "\n";
 		}
+		return res;
 	}
 
-	public String[] settingButton(MainFrame frame) {
+	public String settingButton(MainFrame frame) {
 		sd = new SettingDialog(frame);
 		sd.setBounds(100, 100, 500, 200);
 		sd.setResizable(false);
 		sd.setVisible(true);
 		sd.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-
+		String str = "";
 		if (!sd.isCanceled()) {
-			String[] str = {
-					jcInfoControl.updateInfo(sd.getJcLoginIdField().getText(), sd.getJcLoginPassField().getText()),
-					rInfoControl.updateInfo(sd.getrLoginIdField().getText(), sd.getrLoginPassField().getText()) };
-			return str;
+			if (sd.getJcLoginIdField() != "" && sd.getJcLoginPassField() != "") {
+				str += jcInfoControl.updateInfo(jcLogin, sd.getJcLoginIdField(), sd.getJcLoginPassField()) + "\n";
+			}
+			if (sd.getRLoginIdField() != "" && sd.getRLoginPassField() != "") {
+				str += rInfoControl.updateInfo(rLogin, sd.getRLoginIdField(), sd.getRLoginPassField()) + "\n";
+			}
 		}
-		return null;
+		return str;
 	}
+
 }

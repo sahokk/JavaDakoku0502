@@ -1,0 +1,16 @@
+package db_control;
+
+import org.openqa.selenium.WebDriver;
+
+import login.Login;
+import web_control.JcWebControl;
+
+public class JcInfoControl extends DbControl {
+
+	public JcInfoControl(Login login) {
+		super();
+		super.setTableName(DbTableNames.JC_TABLE_NAME.getValue());
+
+	}
+
+}

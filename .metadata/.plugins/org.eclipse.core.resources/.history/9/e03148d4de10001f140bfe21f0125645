@@ -1,0 +1,9 @@
+package web_control;
+
+public class RWebControl extends WebControl {
+
+	public RWebControl() {
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+}

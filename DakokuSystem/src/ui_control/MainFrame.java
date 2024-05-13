@@ -35,6 +35,7 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 	TextArea mainArea;
 
 	public MainFrame() {
+		mainSystem = new MainSystem();
 		centerPanel = new Panel(new BorderLayout());
 		northPanel = new Panel(new BorderLayout());
 		northPanel2 = new Panel(new GridLayout(2, 1));
@@ -81,6 +82,7 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 	@Override
 	public void windowClosing(WindowEvent e) {
+		mainSystem.finishDriver();
 		System.exit(0);
 
 	}
@@ -123,16 +125,15 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		mainSystem = new MainSystem();
 		if (e.getSource() == dakokuButton) {
-			mainSystem.doDakoku(jcCheckbox.getState(), rCheckbox.getState());
 			mainArea.setText("dakoku");
+			mainArea.setText(mainSystem.doDakoku(jcCheckbox.getState(), rCheckbox.getState()));
+
 		} else if (e.getSource() == settingButton) {
 			mainArea.setText("setting");
-			String[] str = mainSystem.settingButton(this);
-			for (String string : str) {
-				mainArea.setText(string);
-			}
+			String str = mainSystem.settingButton(this);
+			mainArea.setText(str);
+
 		}
 
 	}

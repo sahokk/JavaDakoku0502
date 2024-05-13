@@ -1,23 +1,37 @@
 package dakoku;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.NoSuchDriverException;
 
+import login.Login;
 import utility.Dakokustate;
+import web_control.WebControl;
 
 public abstract class Dakoku {
 
+	private WebDriver driver;
+	private WebControl webControl;
+	private Login login;
+	private String dakokuUrl;
 	private By dakokuButtonIn, dakokuButtonOut;
-	protected WebDriver driver;
-	private boolean flagDakoku = false;
 
-	public Dakoku(By dakokuButtonIn, By dakokuButtonOut) {
+	private boolean flagDakoku;
+
+	public Dakoku(WebControl webControl, Login login, String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut) {
+		this.webControl = webControl;
+		this.driver = webControl.getDriver();
+		this.login = login;
+		this.dakokuUrl = dakokuUrl;
 		this.dakokuButtonIn = dakokuButtonIn;
 		this.dakokuButtonOut = dakokuButtonOut;
+		this.flagDakoku = false;
 	}
 
-	protected abstract void accessDakokuPage();
+	protected void accessDakokuPage() {
+		driver.navigate().to(dakokuUrl);
+
+	}
 
 	protected abstract void pushDakokuListButton();
 
@@ -31,6 +45,9 @@ public abstract class Dakoku {
 
 	public boolean dakoku(Dakokustate dakokustate) {
 		try {
+			if (!webControl.isFlagLogin()) {
+				login.login();
+			}
 			this.accessDakokuPage();
 			this.pushDakokuListButton();
 			switch (dakokustate) {
@@ -44,10 +61,8 @@ public abstract class Dakoku {
 			}
 			}
 			flagDakoku = true;
-		} catch (NoSuchDriverException e) {
+		} catch (NoSuchElementException e) {
 			e.printStackTrace();
-		} finally {
-			driver.quit();
 		}
 
 		return flagDakoku;

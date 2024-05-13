@@ -1,28 +1,19 @@
 package dakoku;
 
 import db_control.JcInformations;
-import login.JcLogin;
-import utility.Dakokustate;
+import login.Login;
+import web_control.JcWebControl;
+import web_control.MyUrls;
+import web_control.WebControl;
 
 public class JcDakoku extends Dakoku {
 
-	public JcDakoku() {
-		super(JcInformations.DAKOKU_BUTTON_IN.getValue(), JcInformations.DAKOKU_BUTTON_OUT.getValue());
-		super.driver = JcLogin.getInstance().getDriver();
-	}
+	private static WebControl webControl = JcWebControl.getInstance();
 
-	@Override
-	public boolean dakoku(Dakokustate dakokustate) {
-		if (JcLogin.getInstance().login()) {
-			return super.dakoku(dakokustate);
-		} else {
-			return false;
-		}
+	public JcDakoku(Login jcLogin) {
+		super(webControl, jcLogin, MyUrls.JC_DAKOKU_URL.getValue(), JcInformations.DAKOKU_BUTTON_IN.getValue(),
+				JcInformations.DAKOKU_BUTTON_OUT.getValue());
 
-	}
-
-	@Override
-	protected void accessDakokuPage() {
 	}
 
 	@Override

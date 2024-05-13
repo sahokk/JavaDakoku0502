@@ -1,8 +1,10 @@
 package login;
 
+import java.util.NoSuchElementException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.NoSuchDriverException;
+import org.openqa.selenium.WebElement;
 
 import web_control.WebControl;
 
@@ -10,33 +12,38 @@ public abstract class Login {
 	private String loginUrl;
 	private By loginIdField, loginPassField, loginButton;
 	private String loginId, loginPass;
-	private WebDriver driver = WebControl.getInstance();
-	private boolean flagLogin;
+	private WebControl webControl;
+	private WebDriver driver;
+	private boolean isLogin;
 
-	protected Login(String loginUrl, By loginIdField, By loginPassField, By loginButton) {
-		this.loginUrl = loginUrl;
+	protected Login(WebControl webControl, By loginIdField, By loginPassField, By loginButton, String loginId,
+			String loginPass) {
+		this.webControl = webControl;
+		this.driver = webControl.getDriver();
+		this.loginUrl = webControl.getPageUrl();
 		this.loginIdField = loginIdField;
 		this.loginPassField = loginPassField;
 		this.loginButton = loginButton;
-		this.loginId = null;
-		this.loginPass = null;
-		this.flagLogin = false;
+		this.loginId = loginId;
+		this.loginPass = loginPass;
+		this.isLogin = webControl.isFlagLogin();
+
 	}
 
-	private void accessLoginPage() {
-		driver.get(loginUrl);
-	}
-
-	private void sendLoginIdToField() {
-		if (this.loginId != null) {
-			driver.findElement(loginIdField).sendKeys(loginId);
+	private void sendLoginIdToField(String loginId) {
+		if (loginId != "") {
+			WebElement element = driver.findElement(loginIdField);
+			element.clear();
+			element.sendKeys(loginId);
 		}
 
 	}
 
-	private void sendLoginPassToField() {
-		if (this.loginPass != null) {
-			driver.findElement(loginPassField).sendKeys(loginPass);
+	private void sendLoginPassToField(String loginPass) {
+		if (loginPass != "") {
+			WebElement element = driver.findElement(loginPassField);
+			element.clear();
+			element.sendKeys(loginPass);
 		}
 	}
 
@@ -45,35 +52,38 @@ public abstract class Login {
 	}
 
 	public boolean login() {
-		try {
-			this.accessLoginPage();
-			this.sendLoginIdToField();
-			this.sendLoginPassToField();
-			this.pushLoginButton();
-			if (!driver.getCurrentUrl().equals(loginUrl)) {
-				flagLogin = true;
+		if (!isLogin) {
+			try {
+				this.sendLoginIdToField(loginId);
+				this.sendLoginPassToField(loginPass);
+				this.pushLoginButton();
+				if (!driver.getCurrentUrl().equals(loginUrl)) {
+					webControl.toggleFlagLogin();
+				}
+			} catch (NoSuchElementException e) {
+				e.printStackTrace();
 			}
-		} catch (NoSuchDriverException e) {
-			e.printStackTrace();
 		}
-		return flagLogin;
+
+		return isLogin;
 
 	}
 
 	public boolean loginTest(String loginId, String loginPass) {
-		this.setLoginId(loginId);
-		this.setLoginPass(loginPass);
-		boolean flagLogin = this.login();
-		driver.close();
-		return flagLogin;
-	}
+		if (!isLogin) {
+			try {
+				this.sendLoginIdToField(loginId);
+				this.sendLoginPassToField(loginPass);
+				this.pushLoginButton();
+				if (!driver.getCurrentUrl().contains("Login")) {
+					webControl.toggleFlagLogin();
+				}
+			} catch (NoSuchElementException e) {
+				e.printStackTrace();
+			}
+		}
 
-	protected void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
-
-	protected void setLoginPass(String loginPass) {
-		this.loginPass = loginPass;
+		return isLogin;
 	}
 
 	public WebDriver getDriver() {

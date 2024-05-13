@@ -1,0 +1,34 @@
+package db_control;
+
+import org.openqa.selenium.WebDriver;
+
+import login.JcLogin;
+import web_control.JcWebControl;
+
+public class JcInfoControl extends DbControl {
+
+	private static JcWebControl webControl = JcWebControl.getInstance();
+	private static WebDriver driver = webControl.getDriver();
+	private static JcLogin login = new JcLogin();
+
+
+	public JcInfoControl(JcLogin login) {
+		super(driver, login);
+		super.setTableName(DbTableNames.JC_TABLE_NAME.getValue());
+
+	}
+
+	@Override
+	public String setInfo(String loginId, String loginPass) {
+		boolean flagLogin = login.loginTest(loginId, loginPass);
+		return (flagLogin ? "ログインテストに成功しました。" : "ログインテストに失敗しました。") + super.setInfo(loginId, loginPass);
+
+	}
+
+	@Override
+	public String updateInfo(String loginId, String loginPass) {
+		boolean flagLogin = login.loginTest(loginId, loginPass);
+		return (flagLogin ? "ログインテストに成功しました。" : "ログインテストに失敗しました。") + super.updateInfo(loginId, loginPass);
+	}
+
+}

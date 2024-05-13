@@ -1,0 +1,20 @@
+package web_control;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public abstract class WebControl {
+	private WebDriver driver;
+
+	public WebControl() {
+		System.setProperty("webdriver.chrome.driver", "src/web_control/chromedriver.exe");
+		// chromeOptions.addArguments("--headless");
+		this.driver = new ChromeDriver();
+	}
+
+	public WebDriver getInstance() {
+		return this.driver;
+	}
+
+
+}

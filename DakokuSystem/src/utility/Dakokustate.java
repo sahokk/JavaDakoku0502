@@ -1,5 +1,15 @@
 package utility;
 
 public enum Dakokustate {
-	IN, OUT;
+	IN("出社"), OUT("退社");
+
+	private String str;
+
+	private Dakokustate(String str) {
+		this.str = str;
+	}
+
+	public String getValue() {
+		return this.str;
+	}
 }

@@ -1,9 +1,0 @@
-package dakoku;
-
-import org.openqa.selenium.By;
-
-public abstract class Dakoku {
-	private String dakokuUrl;
-	private By dakokuButtonIn, dakokuButtonOut, dakokuListButton;
-
-}

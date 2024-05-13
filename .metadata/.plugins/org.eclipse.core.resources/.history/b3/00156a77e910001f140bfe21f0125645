@@ -1,0 +1,80 @@
+package login;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.NoSuchDriverException;
+
+import web_control.WebControl;
+
+public abstract class Login {
+	private String loginUrl;
+	private By loginIdField, loginPassField, loginButton;
+	private String loginId, loginPass;
+	// private WebControl webControl;
+	private WebDriver driver;
+	private boolean flagLogin;
+
+	protected Login(WebControl webControl, By loginIdField, By loginPassField, By loginButton, String loginId,
+			String loginPass) {
+		this.driver = webControl.getDriver();
+		this.loginUrl = webControl.getPageUrl();
+		this.loginIdField = loginIdField;
+		this.loginPassField = loginPassField;
+		this.loginButton = loginButton;
+		this.loginId = loginId;
+		this.loginPass = loginPass;
+		this.flagLogin = false;
+
+	}
+
+	private void sendLoginIdToField(String loginId) {
+		if (this.loginId != null) {
+			driver.findElement(loginIdField).sendKeys(loginId);
+		}
+
+	}
+
+	private void sendLoginPassToField(String loginPass) {
+		if (this.loginPass != null) {
+			driver.findElement(loginPassField).sendKeys(loginPass);
+		}
+	}
+
+	private void pushLoginButton() {
+		driver.findElement(loginButton).click();
+	}
+
+	public boolean login() {
+		try {
+			this.sendLoginIdToField(loginId);
+			this.sendLoginPassToField(loginPass);
+			this.pushLoginButton();
+			if (!driver.getCurrentUrl().equals(loginUrl)) {
+				flagLogin = true;
+			}
+		} catch (NoSuchDriverException e) {
+			e.printStackTrace();
+		}
+		return flagLogin;
+
+	}
+
+	public boolean loginTest(String loginId, String loginPass) {
+		try {
+			this.sendLoginIdToField(loginId);
+			this.sendLoginPassToField(loginPass);
+			this.pushLoginButton();
+			if (!driver.getCurrentUrl().equals(loginUrl)) {
+				flagLogin = true;
+			}
+		} catch (NoSuchDriverException e) {
+			e.printStackTrace();
+		}
+		return flagLogin;
+	}
+
+	public WebDriver getDriver() {
+		return this.driver;
+	}
+
+}

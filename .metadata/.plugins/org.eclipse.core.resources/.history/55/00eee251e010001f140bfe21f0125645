@@ -1,0 +1,18 @@
+package login;
+
+import db_control.DbColumns;
+import db_control.DbControl;
+import db_control.RInfoControl;
+import db_control.RInformations;
+import utility.MyUrls;
+import web_control.JcWebControl;
+
+public class RLogin extends Login {
+
+	public RLogin() {
+		super(RWebControl.getInstance().getDriver(), RInformations.LOGIN_ID_FIELD.getValue(),
+				RInformations.LOGIN_PASS_FIELD.getValue(), RInformations.LOGIN_BUTTON_FIELD.getValue(),
+				dbControl.getInfo(DbColumns.LOGIN_ID), dbControl.getInfo(DbColumns.LOGIN_PASS));
+	}
+
+}
