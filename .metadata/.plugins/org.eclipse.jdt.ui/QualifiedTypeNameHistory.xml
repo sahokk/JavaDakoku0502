@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.awt.Frame"/>
-    <fullyQualifiedTypeName name="java.awt.TextArea"/>
     <fullyQualifiedTypeName name="gui.MainFrame"/>
     <fullyQualifiedTypeName name="java.awt.Button"/>
     <fullyQualifiedTypeName name="java.awt.Choice"/>
@@ -36,28 +34,30 @@
     <fullyQualifiedTypeName name="web_control.RWebControl"/>
     <fullyQualifiedTypeName name="java.sql.DriverManager"/>
     <fullyQualifiedTypeName name="org.openqa.selenium.WebDriver"/>
-    <fullyQualifiedTypeName name="db_control.DbColumns"/>
-    <fullyQualifiedTypeName name="db_control.DbControl"/>
     <fullyQualifiedTypeName name="db_control.RInfoControl"/>
     <fullyQualifiedTypeName name="login.RLogin"/>
     <fullyQualifiedTypeName name="dakoku.RDakoku"/>
-    <fullyQualifiedTypeName name="org.openqa.selenium.By"/>
-    <fullyQualifiedTypeName name="db_control.JcInformations"/>
-    <fullyQualifiedTypeName name="db_control.RInformations"/>
     <fullyQualifiedTypeName name="org.openqa.selenium.WebElement"/>
-    <fullyQualifiedTypeName name="java.util.NoSuchElementException"/>
     <fullyQualifiedTypeName name="net.bytebuddy.asm.Advice.This"/>
     <fullyQualifiedTypeName name="org.openqa.selenium.NoSuchElementException"/>
-    <fullyQualifiedTypeName name="web_control.WebControl"/>
     <fullyQualifiedTypeName name="utility.MyUrls"/>
     <fullyQualifiedTypeName name="web_control.JcWebControl"/>
     <fullyQualifiedTypeName name="login.Login"/>
     <fullyQualifiedTypeName name="net.bytebuddy.agent.builder.AgentBuilder.FallbackStrategy.Simple"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="org.checkerframework.common.reflection.qual.NewInstance"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.util.Calendar"/>
     <fullyQualifiedTypeName name="utility.Dakokustate"/>
     <fullyQualifiedTypeName name="org.openqa.selenium.chrome.ChromeOptions"/>
+    <fullyQualifiedTypeName name="web_control.WebControl"/>
+    <fullyQualifiedTypeName name="db_control.DbColumns"/>
+    <fullyQualifiedTypeName name="db_control.DbControl"/>
+    <fullyQualifiedTypeName name="java.util.NoSuchElementException"/>
+    <fullyQualifiedTypeName name="db_control.JcInformations"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.By"/>
+    <fullyQualifiedTypeName name="db_control.RInformations"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="web_control.MyUrls"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.ElementNotInteractableException"/>
 </qualifiedTypeNameHistroy>

@@ -1,9 +1,0 @@
-package web_control;
-
-public class WebControl {
-
-	public WebControl() {
-		System.setProperty("webdriver.chrome.driver", "src/web/chromedriver.exe");
-		// chromeOptions.addArguments("--headless");
-	}
-}

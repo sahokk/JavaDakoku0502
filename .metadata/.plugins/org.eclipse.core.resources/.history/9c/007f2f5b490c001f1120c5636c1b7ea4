@@ -1,9 +1,0 @@
-package login;
-
-public class RLogin extends Login {
-
-	public RLogin(String loginUrl, String loginIdField, String loginPassField, String loginButton) {
-		super(loginUrl, loginIdField, loginPassField, loginButton);
-	}
-
-}

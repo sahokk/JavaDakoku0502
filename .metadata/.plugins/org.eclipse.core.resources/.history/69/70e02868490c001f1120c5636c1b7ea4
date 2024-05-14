@@ -1,7 +1,0 @@
-package login;
-
-public class RLogin extends Login {
-
-	private static Login rLogin = new RLogin();
-
-}
