@@ -20,7 +20,6 @@ INDEX VERSION 1.131+C:\Users\user\Documents\JavaDakoku0502\.metadata\.plugins\or
 4225144758.index
 3125909497.index
 791534951.index
-1838168659.index
 496750247.index
 1415316026.index
 2815227503.index

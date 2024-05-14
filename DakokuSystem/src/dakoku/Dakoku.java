@@ -1,11 +1,10 @@
 package dakoku;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 
 import login.Login;
-import utility.Dakokustate;
 import web_control.WebControl;
 
 public abstract class Dakoku {
@@ -44,28 +43,24 @@ public abstract class Dakoku {
 	}
 
 	public boolean dakoku(Dakokustate dakokustate) {
+		flagDakoku = false;
 		try {
-			if (!webControl.isFlagLogin()) {
-				login.login();
+			boolean isLogin = login.login();
+			if (isLogin) {
+				this.accessDakokuPage();
+				this.pushDakokuListButton();
+				if (dakokustate == Dakokustate.IN) {
+					this.pushDakokuButtonIn();
+				} else {
+					this.pushDakokuButtonOut();
+				}
+				flagDakoku = true;
 			}
-			this.accessDakokuPage();
-			this.pushDakokuListButton();
-			switch (dakokustate) {
-			case IN: {
-				this.pushDakokuButtonIn();
-				break;
-			}
-			case OUT: {
-				this.pushDakokuButtonOut();
-				break;
-			}
-			}
-			flagDakoku = true;
-		} catch (NoSuchElementException e) {
+		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
 		}
-
 		return flagDakoku;
+
 	}
 
 }

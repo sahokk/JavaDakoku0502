@@ -16,7 +16,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import db_control.DbControl;
-import sys.MainSystem;
+import run.MainSystem;
 
 public class MainFrame extends Frame implements ActionListener, ItemListener, WindowListener {
 	DbControl dbControl;
@@ -131,7 +131,7 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 		} else if (e.getSource() == settingButton) {
 			mainArea.setText("setting");
-			String str = mainSystem.settingButton(this);
+			String str = mainSystem.pushSettingButton(this);
 			mainArea.setText(str);
 
 		}

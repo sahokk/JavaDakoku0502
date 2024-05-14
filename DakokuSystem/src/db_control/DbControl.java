@@ -69,7 +69,8 @@ public abstract class DbControl {
 
 	public String setInfo(Login login, String loginId, String loginPass) {
 		String str = "";
-		if (login.loginTest(loginId, loginPass)) {
+		boolean isLogin = login.loginTest(loginId, loginPass);
+		if (isLogin) {
 			connectDB();
 			String sql = "INSERT INTO " + tableName + " values ('?', '?');";
 			try {
@@ -96,7 +97,8 @@ public abstract class DbControl {
 
 	public String updateInfo(Login login, String loginId, String loginPass) {
 		String str = "";
-		if (login.loginTest(loginId, loginPass)) {
+		boolean isLogin = login.loginTest(loginId, loginPass);
+		if (isLogin) {
 			connectDB();
 			String sql = "UPDATE " + tableName + " SET " + DbColumns.LOGIN_ID.getValue() + "='" + loginId + "', "
 					+ DbColumns.LOGIN_PASS.getValue() + "='" + loginPass + "';";
@@ -116,7 +118,6 @@ public abstract class DbControl {
 			}
 		} else {
 			str = "ログインテストに失敗しました。" + tableName;
-			;
 		}
 		return str;
 	}

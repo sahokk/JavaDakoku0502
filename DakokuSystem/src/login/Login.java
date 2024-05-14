@@ -9,25 +9,32 @@ import org.openqa.selenium.WebElement;
 import web_control.WebControl;
 
 public abstract class Login {
-	private String loginUrl;
 	private By loginIdField, loginPassField, loginButton;
-	private String loginId, loginPass;
+	private String loginId, loginPass, logoutUrl;
 	private WebControl webControl;
 	private WebDriver driver;
 	private boolean isLogin;
 
-	protected Login(WebControl webControl, By loginIdField, By loginPassField, By loginButton, String loginId,
-			String loginPass) {
+	protected Login(WebControl webControl, By loginIdField, By loginPassField, By loginButton, String logoutUrl) {
 		this.webControl = webControl;
 		this.driver = webControl.getDriver();
-		this.loginUrl = webControl.getPageUrl();
 		this.loginIdField = loginIdField;
 		this.loginPassField = loginPassField;
 		this.loginButton = loginButton;
-		this.loginId = loginId;
-		this.loginPass = loginPass;
+		this.logoutUrl = logoutUrl;
+		this.loginId = "";
+		this.loginPass = "";
+		webControl.toggleFlagLogin(webControl.getPageUrl());
 		this.isLogin = webControl.isFlagLogin();
 
+	}
+
+	protected void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+
+	protected void setLoginPass(String loginPass) {
+		this.loginPass = loginPass;
 	}
 
 	private void sendLoginIdToField(String loginId) {
@@ -51,17 +58,23 @@ public abstract class Login {
 		driver.findElement(loginButton).click();
 	}
 
+	protected void pushLogoutButton() {
+		driver.navigate().to(logoutUrl);
+		driver.navigate().to(webControl.getPageUrl());
+	}
+
 	public boolean login() {
+		isLogin = webControl.isFlagLogin();
 		if (!isLogin) {
 			try {
 				this.sendLoginIdToField(loginId);
 				this.sendLoginPassToField(loginPass);
 				this.pushLoginButton();
-				if (!driver.getCurrentUrl().equals(loginUrl)) {
-					webControl.toggleFlagLogin();
-				}
 			} catch (NoSuchElementException e) {
 				e.printStackTrace();
+			} finally {
+				webControl.toggleFlagLogin(driver.getCurrentUrl());
+				isLogin = webControl.isFlagLogin();
 			}
 		}
 
@@ -70,20 +83,36 @@ public abstract class Login {
 	}
 
 	public boolean loginTest(String loginId, String loginPass) {
+		this.logout();
 		if (!isLogin) {
 			try {
 				this.sendLoginIdToField(loginId);
 				this.sendLoginPassToField(loginPass);
 				this.pushLoginButton();
-				if (!driver.getCurrentUrl().contains("Login")) {
-					webControl.toggleFlagLogin();
-				}
 			} catch (NoSuchElementException e) {
 				e.printStackTrace();
+			} finally {
+				webControl.toggleFlagLogin(driver.getCurrentUrl());
+				isLogin = webControl.isFlagLogin();
 			}
 		}
 
 		return isLogin;
+	}
+
+	private void logout() {
+		isLogin = webControl.isFlagLogin();
+		if (isLogin) {
+			try {
+				this.pushLogoutButton();
+			} catch (NoSuchElementException e) {
+				e.printStackTrace();
+			} finally {
+				webControl.toggleFlagLogin(driver.getCurrentUrl());
+				isLogin = webControl.isFlagLogin();
+				System.out.println("ログアウトしました");
+			}
+		}
 	}
 
 	public WebDriver getDriver() {

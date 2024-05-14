@@ -1,0 +1,70 @@
+package dakoku;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.WebDriver;
+
+import login.Login;
+import web_control.WebControl;
+
+public abstract class Dakoku {
+
+	private WebDriver driver;
+	private WebControl webControl;
+	private Login login;
+	private String dakokuUrl;
+	private By dakokuButtonIn, dakokuButtonOut;
+
+	private boolean flagDakoku;
+
+	public Dakoku(WebControl webControl, Login login, String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut) {
+		this.webControl = webControl;
+		this.driver = webControl.getDriver();
+		this.login = login;
+		this.dakokuUrl = dakokuUrl;
+		this.dakokuButtonIn = dakokuButtonIn;
+		this.dakokuButtonOut = dakokuButtonOut;
+		this.flagDakoku = false;
+	}
+
+	protected void accessDakokuPage() {
+		driver.navigate().to(dakokuUrl);
+
+	}
+
+	protected abstract void pushDakokuListButton();
+
+	private void pushDakokuButtonIn() {
+		driver.findElement(dakokuButtonIn).click();
+	}
+
+	private void pushDakokuButtonOut() {
+		driver.findElement(dakokuButtonOut).click();
+	}
+
+	public boolean dakoku(Dakokustate dakokustate) {
+		try {
+			boolean isLogin = login.login();
+			if (isLogin) {
+				this.accessDakokuPage();
+				this.pushDakokuListButton();
+				switch (dakokustate) {
+				case IN: {
+					this.pushDakokuButtonIn();
+					break;
+				}
+				case OUT: {
+					this.pushDakokuButtonOut();
+					break;
+				}
+				}
+				flagDakoku = true;
+			}
+		} catch (ElementNotInteractableException e) {
+			flagDakoku = false;
+		}
+
+		return flagDakoku;
+	}
+
+}

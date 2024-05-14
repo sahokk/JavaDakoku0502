@@ -18,7 +18,6 @@ public class JcDakoku extends Dakoku {
 
 	@Override
 	protected void pushDakokuListButton() {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
