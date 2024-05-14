@@ -8,7 +8,7 @@ public abstract class WebControl {
 	private WebDriver driver;
 	private String pageUrl;
 	private boolean flagLogin;
-	private static ChromeOptions chromeOptions = new ChromeOptions();;
+	private static ChromeOptions chromeOptions = new ChromeOptions();
 
 	protected WebControl() {
 		System.setProperty("webdriver.chrome.driver", "src/web_control/chromedriver.exe");

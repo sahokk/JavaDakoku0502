@@ -1,0 +1,2 @@
+NamingRules=${package}.${type}Test\:true,${package}.${type}PDETest\:false
+eclipse.preferences.version=1

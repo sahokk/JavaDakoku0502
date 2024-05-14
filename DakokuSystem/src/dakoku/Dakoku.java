@@ -10,7 +10,6 @@ import web_control.WebControl;
 public abstract class Dakoku {
 
 	private WebDriver driver;
-	private WebControl webControl;
 	private Login login;
 	private String dakokuUrl;
 	private By dakokuButtonIn, dakokuButtonOut;
@@ -18,7 +17,6 @@ public abstract class Dakoku {
 	private boolean flagDakoku;
 
 	public Dakoku(WebControl webControl, Login login, String dakokuUrl, By dakokuButtonIn, By dakokuButtonOut) {
-		this.webControl = webControl;
 		this.driver = webControl.getDriver();
 		this.login = login;
 		this.dakokuUrl = dakokuUrl;

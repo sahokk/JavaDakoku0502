@@ -8,11 +8,4 @@
 	</buildSpec>
 	<natures>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>.link1</name>
-			<type>2</type>
-			<location>C:/Users/user/Downloads/chrome-win64/chrome-win64-124.0.6367.201</location>
-		</link>
-	</linkedResources>
 </projectDescription>
