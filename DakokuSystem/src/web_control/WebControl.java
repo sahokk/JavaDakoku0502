@@ -11,7 +11,6 @@ public abstract class WebControl {
 	private static ChromeOptions chromeOptions = new ChromeOptions();
 
 	protected WebControl() {
-		System.setProperty("webdriver.chrome.driver", this.getClass().getResource("./chromedriver.exe").getPath());
 		chromeOptions.addArguments("--headless");
 		this.driver = new ChromeDriver(chromeOptions);
 		this.flagLogin = false;
@@ -40,13 +39,11 @@ public abstract class WebControl {
 	}
 
 	public void finishDriver() {
-		driver.close();
+		driver.quit();
 	}
 
 	public void toggleFlagLogin(String currentUrl) {
 		this.flagLogin = currentUrl.contains("Login") ? false : !currentUrl.contains("Logout");
-		System.out.println("ログイン状態: " + flagLogin);
-		System.out.println("==============");
 	}
 
 	public boolean isFlagLogin() {

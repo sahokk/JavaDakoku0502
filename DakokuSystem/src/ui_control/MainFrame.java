@@ -52,8 +52,8 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 		rCheckbox = new Checkbox("R GROUP");
 		jcCheckbox = new Checkbox("JC");
 
-		northPanel2.add(rCheckbox);
 		northPanel2.add(jcCheckbox);
+		northPanel2.add(rCheckbox);
 
 		mainArea = new TextArea(18, 80);
 		mainArea.setEditable(false);
@@ -82,7 +82,7 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 	@Override
 	public void windowOpened(WindowEvent e) {
 		if (isFirstOpened) {
-			mainArea.setText("はじめまして。初めにログイン情報を登録します。");
+			mainArea.setText("はじめまして！　初めにログイン情報を登録してください。");
 			String str = mainSystem.pushSettingButton(this, isFirstOpened);
 			mainArea.setText(str);
 		}

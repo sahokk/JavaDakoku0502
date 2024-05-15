@@ -57,14 +57,14 @@ public class MainSystem {
 
 		if (jc) {
 			jcDakoku = new JcDakoku(jcLogin);
-			res += "Jc:"
-					+ (jcDakoku.dakoku(dakokustate) ? "打刻完了" + dateFormat.format(new Date()) + dakokustate.getValue()
+			res += "Jc: "
+					+ (jcDakoku.dakoku(dakokustate) ? "打刻完了 " + dateFormat.format(new Date()) + dakokustate.getValue()
 							: "打刻失敗")
 					+ "\n";
 		}
 		if (r) {
 			rDakoku = new RDakoku(rLogin);
-			res += "R:" + (rDakoku.dakoku(dakokustate) ? "打刻完了" + dateFormat.format(new Date()) + dakokustate.getValue()
+			res += "R: " + (rDakoku.dakoku(dakokustate) ? "打刻完了 " + dateFormat.format(new Date()) + dakokustate.getValue()
 					: "打刻失敗") + "\n";
 		}
 		return res;
@@ -78,13 +78,11 @@ public class MainSystem {
 		sd.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		String str = "";
 		if (!sd.isCanceled()) {
-			if (sd.getJcLoginIdField() != null && sd.getJcLoginPassField() != null) {
-				str += jcInfoControl.updateInfo(isFirstOpened, jcLogin, sd.getJcLoginIdField(),
-						sd.getJcLoginPassField()) + "\n";
+			if (!sd.getJcLoginIdField().isBlank() && !sd.getJcLoginPassField().isBlank()) {
+				str += jcInfoControl.updateInfo(jcLogin, sd.getJcLoginIdField(), sd.getJcLoginPassField()) + "\n";
 			}
-			if (sd.getRLoginIdField() != null && sd.getRLoginPassField() != null) {
-				str += rInfoControl.updateInfo(isFirstOpened, rLogin, sd.getRLoginIdField(), sd.getRLoginPassField())
-						+ "\n";
+			if (!sd.getRLoginIdField().isBlank() && !sd.getRLoginPassField().isBlank()) {
+				str += rInfoControl.updateInfo(rLogin, sd.getRLoginIdField(), sd.getRLoginPassField()) + "\n";
 			}
 		}
 		return str;

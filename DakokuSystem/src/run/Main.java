@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		MainFrame mainFrame = new MainFrame();
-		mainFrame.setBounds(5, 5, 900, 500);
+		mainFrame.setBounds(300, 300, 500, 300);
 		mainFrame.setVisible(true);
 	}
 

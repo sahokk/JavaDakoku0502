@@ -74,12 +74,27 @@ public class RunOnce {
 			sqlCon.setAutoCommit(false);
 			sqlStmt = sqlCon.prepareStatement("USE " + DbLoginInfo.GIKEN_DB_NAME.getValue() + ";");
 			sqlStmt.executeUpdate();
+
 			sqlStmt = sqlCon.prepareStatement("CREATE TABLE " + DbTableNames.JC_TABLE_NAME.getValue() + " ("
 					+ DbColumns.LOGIN_ID.getInfo() + ", " + DbColumns.LOGIN_PASS.getInfo() + ");");
 			sqlStmt.executeUpdate();
+
+			sqlStmt = sqlCon
+					.prepareStatement("INSERT INTO " + DbTableNames.JC_TABLE_NAME.getValue() + " VALUES (?, ?);");
+			sqlStmt.setString(1, "");
+			sqlStmt.setString(2, "");
+			sqlStmt.executeUpdate();
+
 			sqlStmt = sqlCon.prepareStatement("CREATE TABLE " + DbTableNames.R_TABLE_NAME.getValue() + " ("
 					+ DbColumns.LOGIN_ID.getInfo() + ", " + DbColumns.LOGIN_PASS.getInfo() + ");");
 			sqlStmt.executeUpdate();
+
+			sqlStmt = sqlCon
+					.prepareStatement("INSERT INTO " + DbTableNames.R_TABLE_NAME.getValue() + " VALUES (?, ?);");
+			sqlStmt.setString(1, "");
+			sqlStmt.setString(2, "");
+			sqlStmt.executeUpdate();
+
 			sqlCon.commit();
 		} catch (SQLException e) {
 			sqlCon.rollback();

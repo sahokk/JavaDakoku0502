@@ -22,9 +22,8 @@ public abstract class DbControl {
 
 	private static void connectDB() {
 		try {
-			sqlCon = DriverManager.getConnection(DbLoginInfo.GIKEN_URL.getValue(), DbLoginInfo.GIKEN_USER.getValue(),
-					DbLoginInfo.GIKEN_PASSWORD.getValue());
-			System.out.println("DB connect success");
+			sqlCon = DriverManager.getConnection(DbLoginInfo.GIKEN_URL.getValue(), DbLoginInfo.ROOT_USER.getValue(),
+					DbLoginInfo.ROOT_PASSWORD.getValue());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +53,7 @@ public abstract class DbControl {
 			sqlStmt = sqlCon.prepareStatement(sql);
 			res = sqlStmt.executeQuery();
 			if (res.next()) {
-				return res.getString(colmunsName);
+				return !res.getString(colmunsName).isBlank() ? res.getString(colmunsName) : null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,15 +63,14 @@ public abstract class DbControl {
 		return null;
 	}
 
-	public String updateInfo(boolean isFirstOpened, Login login, String loginId, String loginPass) {
+	public String updateInfo(Login login, String loginId, String loginPass) {
 		String str = "";
 		boolean isLogin = login.loginTest(loginId, loginPass);
 		if (isLogin) {
-			str += "ログインテストに成功しました。" + tableName + "\n";
+			str += "ログインテスト完了 （ " + tableName + " ）\n";
 			connectDB();
-			String sql = isFirstOpened ? "INSERT INTO " + tableName + " VALUES (?, ?);"
-					: "UPDATE " + tableName + " SET " + DbColumns.LOGIN_ID.getValue() + "=?, "
-							+ DbColumns.LOGIN_PASS.getValue() + "=?;";
+			String sql = "UPDATE " + tableName + " SET " + DbColumns.LOGIN_ID.getValue() + "=?, "
+					+ DbColumns.LOGIN_PASS.getValue() + "=?;";
 			try {
 				sqlStmt = sqlCon.prepareStatement(sql);
 				sqlStmt.setString(1, loginId);
@@ -80,9 +78,9 @@ public abstract class DbControl {
 
 				int no = sqlStmt.executeUpdate();
 				if (no == 1) {
-					str += "情報の更新に成功しました。" + tableName;
+					str += "情報の更新に成功しました。　（ " + DbColumns.LOGIN_ID.getValue() + ": " + loginId + " ）\n";
 				} else {
-					str += "情報の更新に失敗しました。" + tableName;
+					str += "情報の更新に失敗しました。";
 				}
 			} catch (SQLException e) {
 				return e.getMessage();
@@ -90,7 +88,7 @@ public abstract class DbControl {
 				closeDB(res, sqlStmt, sqlCon);
 			}
 		} else {
-			str = "ログインテストに失敗しました。" + tableName;
+			str = "ログインテストに失敗しました。" + tableName + "\n";
 		}
 		return str;
 	}

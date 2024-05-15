@@ -1,9 +1,9 @@
 package db_control;
 
 public enum DbLoginInfo {
-	ROOT_USER("root"),
+	ROOT_USER("seed"),
 	ROOT_PASSWORD("Tech_123"),
-	ROOT_URL("jdbc:mysql://localhost:3306/techdb"),
+	ROOT_URL("jdbc:mysql://localhost:3306/sys"),
 	GIKEN_USER("testuser"),
 	GIKEN_PASSWORD("giken2"),
 	GIKEN_DB_NAME("db_giken2"),
