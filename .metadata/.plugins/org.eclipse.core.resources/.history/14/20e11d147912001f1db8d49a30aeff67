@@ -1,0 +1,15 @@
+package db_control;
+
+public enum DbLoginInfo {
+	ROOT_USER(""), ROOT_PASSWORD(), ROOT_URL(), GIKEN_USER(), GIKEN_PASSWORD(), GIKEN_URL();
+
+	private String string;
+
+	private DbLoginInfo(String string) {
+		this.string = string;
+	}
+
+	public static String getValue() {
+		return string;
+	}
+}

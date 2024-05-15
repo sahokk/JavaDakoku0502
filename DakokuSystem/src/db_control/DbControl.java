@@ -16,17 +16,14 @@ public abstract class DbControl {
 	private PreparedStatement sqlStmt = null;
 	private ResultSet res = null;
 
-	private static final String sqlUserID = "testuser";
-	private static final String sqlPassword = "giken2";
-	private static final String dbUrl = "jdbc:mysql://localhost:3306/db_giken2";
-
 	public DbControl() {
 		this.colmunsName = "";
 	}
 
 	private static void connectDB() {
 		try {
-			sqlCon = DriverManager.getConnection(dbUrl, sqlUserID, sqlPassword);
+			sqlCon = DriverManager.getConnection(DbLoginInfo.GIKEN_URL.getValue(), DbLoginInfo.GIKEN_USER.getValue(),
+					DbLoginInfo.GIKEN_PASSWORD.getValue());
 			System.out.println("DB connect success");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -67,49 +64,25 @@ public abstract class DbControl {
 		return null;
 	}
 
-	public String setInfo(Login login, String loginId, String loginPass) {
+	public String updateInfo(boolean isFirstOpened, Login login, String loginId, String loginPass) {
 		String str = "";
 		boolean isLogin = login.loginTest(loginId, loginPass);
 		if (isLogin) {
+			str += "ログインテストに成功しました。" + tableName + "\n";
 			connectDB();
-			String sql = "INSERT INTO " + tableName + " values ('?', '?');";
+			String sql = isFirstOpened ? "INSERT INTO " + tableName + " VALUES (?, ?);"
+					: "UPDATE " + tableName + " SET " + DbColumns.LOGIN_ID.getValue() + "=?, "
+							+ DbColumns.LOGIN_PASS.getValue() + "=?;";
 			try {
 				sqlStmt = sqlCon.prepareStatement(sql);
-				sqlStmt.setString(1, DbColumns.LOGIN_ID.getValue());
-				sqlStmt.setString(2, DbColumns.LOGIN_PASS.getValue());
-				int no = sqlStmt.executeUpdate();
-				if (no == 1) {
-					str = "情報の登録に成功しました。" + tableName;
-				} else {
-					str = "情報の登録に失敗しました。" + tableName;
-				}
-			} catch (SQLException e) {
-				return e.getMessage();
-			} finally {
-				closeDB(res, sqlStmt, sqlCon);
-			}
-		} else {
-			str = "ログインテストに失敗しました。" + tableName;
-		}
-		return str;
-
-	}
-
-	public String updateInfo(Login login, String loginId, String loginPass) {
-		String str = "";
-		boolean isLogin = login.loginTest(loginId, loginPass);
-		if (isLogin) {
-			connectDB();
-			String sql = "UPDATE " + tableName + " SET " + DbColumns.LOGIN_ID.getValue() + "='" + loginId + "', "
-					+ DbColumns.LOGIN_PASS.getValue() + "='" + loginPass + "';";
-			try {
-				sqlStmt = sqlCon.prepareStatement(sql);
+				sqlStmt.setString(1, loginId);
+				sqlStmt.setString(2, loginPass);
 
 				int no = sqlStmt.executeUpdate();
 				if (no == 1) {
-					str = "情報の更新に成功しました。" + tableName;
+					str += "情報の更新に成功しました。" + tableName;
 				} else {
-					str = "情報の更新に失敗しました。" + tableName;
+					str += "情報の更新に失敗しました。" + tableName;
 				}
 			} catch (SQLException e) {
 				return e.getMessage();

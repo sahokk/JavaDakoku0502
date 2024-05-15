@@ -1,0 +1,94 @@
+package settings;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import db_control.DbLoginInfo;
+
+public class RunOnce {
+
+	private String colmunsName;
+	private String tableName;
+
+	private static Connection sqlCon = null;
+	private PreparedStatement sqlStmt = null;
+	private ResultSet res = null;
+
+	private static final String USER = DbLoginInfo.ROOT_USER.getValue();
+	private static final String PASSWORD = DbLoginInfo.ROOT_PASSWORD.getValue();
+	private static final String URL = DbLoginInfo.ROOT_URL.getValue();
+
+	public RunOnce() {
+		this.colmunsName = "";
+	}
+
+	private static void connectDB() {
+		try {
+			sqlCon = DriverManager.getConnection(URL, USER, PASSWORD);
+			System.out.println("DB connect success");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void closeDB(ResultSet res, PreparedStatement stmt, Connection con) {
+		try {
+			if (res != null) {
+				res.close();
+			}
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private boolean checkFirst() throws SQLException {
+		try {
+			sqlStmt = sqlCon.prepareStatement("show databases;");
+			res = sqlStmt.executeQuery();
+			while (res.next()) {
+				if (res.getString("Databases").equals(DbLoginInfo.GIKEN_DB_NAME.getValue())) {
+					return false;
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+
+		return true;
+	}
+
+	private void makeDB() {
+		try {
+			sqlStmt = sqlCon.prepareStatement("CREATE DATABASE ?;");
+			sqlStmt.setString(1, DbLoginInfo.GIKEN_DB_NAME.getValue());
+			sqlStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void run() {
+		connectDB();
+		try {
+			if (checkFirst()) {
+				makeDB();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB(res, sqlStmt, sqlCon);
+		}
+	}
+
+}

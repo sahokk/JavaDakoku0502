@@ -1,0 +1,5 @@
+package db_control;
+
+public enum DbLoginInfo {
+
+}

@@ -12,13 +12,17 @@ public abstract class WebControl {
 
 	protected WebControl() {
 		System.setProperty("webdriver.chrome.driver", "src/web_control/chromedriver.exe");
-//		chromeOptions.addArguments("--headless");
+		chromeOptions.addArguments("--headless");
 		this.driver = new ChromeDriver(chromeOptions);
 		this.flagLogin = false;
 	}
 
 	public WebDriver getDriver() {
 		return driver;
+	}
+
+	protected void setDriver(WebDriver driver) {
+		this.driver = driver;
 	}
 
 	public String getPageUrl() {

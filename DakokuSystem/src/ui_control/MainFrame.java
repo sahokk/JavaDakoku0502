@@ -17,6 +17,7 @@ import java.awt.event.WindowListener;
 
 import db_control.DbControl;
 import run.MainSystem;
+import settings.RunOnce;
 
 public class MainFrame extends Frame implements ActionListener, ItemListener, WindowListener {
 	DbControl dbControl;
@@ -33,8 +34,12 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 	Button settingButton;
 
 	TextArea mainArea;
+	boolean isFirstOpened;
 
 	public MainFrame() {
+
+		isFirstOpened = new RunOnce().run();
+
 		mainSystem = new MainSystem();
 		centerPanel = new Panel(new BorderLayout());
 		northPanel = new Panel(new BorderLayout());
@@ -76,7 +81,11 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
+		if (isFirstOpened) {
+			mainArea.setText("はじめまして。初めにログイン情報を登録します。");
+			String str = mainSystem.pushSettingButton(this, isFirstOpened);
+			mainArea.setText(str);
+		}
 
 	}
 
@@ -128,10 +137,12 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 		if (e.getSource() == dakokuButton) {
 			mainArea.setText("dakoku");
 			mainArea.setText(mainSystem.doDakoku(jcCheckbox.getState(), rCheckbox.getState()));
+			jcCheckbox.setState(false);
+			rCheckbox.setState(false);
 
 		} else if (e.getSource() == settingButton) {
 			mainArea.setText("setting");
-			String str = mainSystem.pushSettingButton(this);
+			String str = mainSystem.pushSettingButton(this, isFirstOpened);
 			mainArea.setText(str);
 
 		}
