@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.awt.CheckboxGroup"/>
-    <fullyQualifiedTypeName name="java.awt.Panel"/>
-    <fullyQualifiedTypeName name="java.awt.GridLayout"/>
-    <fullyQualifiedTypeName name="java.awt.Checkbox"/>
-    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="utility.JcInformations"/>
     <fullyQualifiedTypeName name="utility.RInformations"/>
@@ -53,11 +48,16 @@
     <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="db_control.JcInformations"/>
     <fullyQualifiedTypeName name="db_control.DbTableNames"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="db_control.DbColumns"/>
     <fullyQualifiedTypeName name="settings.RunOnce"/>
     <fullyQualifiedTypeName name="net.bytebuddy.asm.Advice.This"/>
     <fullyQualifiedTypeName name="org.openqa.selenium.chrome.ChromeDriver"/>
     <fullyQualifiedTypeName name="com.google.common.collect.ImmutableBiMap.Builder"/>
     <fullyQualifiedTypeName name="db_control.JcInfoControl"/>
+    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+    <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+    <fullyQualifiedTypeName name="java.lang.ClassLoader"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
 </qualifiedTypeNameHistroy>

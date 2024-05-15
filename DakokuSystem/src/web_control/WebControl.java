@@ -11,7 +11,7 @@ public abstract class WebControl {
 	private static ChromeOptions chromeOptions = new ChromeOptions();
 
 	protected WebControl() {
-		System.setProperty("webdriver.chrome.driver", "src/web_control/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", this.getClass().getResource("./chromedriver.exe").getPath());
 		chromeOptions.addArguments("--headless");
 		this.driver = new ChromeDriver(chromeOptions);
 		this.flagLogin = false;
