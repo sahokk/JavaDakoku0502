@@ -1,26 +1,26 @@
 package login;
 
+import dao.JcDAO;
 import db_control.DbColumns;
-import db_control.DbControl;
 import db_control.JcInformations;
 import web_control.JcWebControl;
 import web_control.MyUrls;
 
 public class JcLogin extends Login {
 
-	private DbControl dbControl;
+	private JcDAO dao;
 
-	public JcLogin(DbControl dbControl) {
+	public JcLogin(JcDAO dao) {
 		super(JcWebControl.getInstance(), JcInformations.LOGIN_ID_FIELD.getValue(),
 				JcInformations.LOGIN_PASS_FIELD.getValue(), JcInformations.LOGIN_BUTTON_FIELD.getValue(),
 				MyUrls.JC_LOGOUT_URL.getValue());
-		this.dbControl = dbControl;
+		this.dao = dao;
 	}
 
 	@Override
 	public boolean login() {
-		super.setLoginId(dbControl.getInfo(DbColumns.LOGIN_ID));
-		super.setLoginPass(dbControl.getInfo(DbColumns.LOGIN_PASS));
+		super.setLoginId(dao.serchDBInfo(DbColumns.LOGIN_ID.getValue()).getUser());
+		super.setLoginPass(dao.serchDBInfo(DbColumns.LOGIN_PASS.getValue()).getPass());
 		return super.login();
 	}
 

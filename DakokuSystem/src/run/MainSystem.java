@@ -1,6 +1,7 @@
 package run;
 
 import java.awt.Dialog;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,9 +10,10 @@ import dakoku.Dakoku;
 import dakoku.Dakokustate;
 import dakoku.JcDakoku;
 import dakoku.RDakoku;
-import db_control.DbControl;
-import db_control.JcInfoControl;
-import db_control.RInfoControl;
+import dao.ConnectionManager;
+import dao.DAO;
+import dao.JcDAO;
+import dao.RDAO;
 import login.JcLogin;
 import login.Login;
 import login.RLogin;
@@ -26,23 +28,26 @@ public class MainSystem {
 	private static Login rLogin;
 	private static Dakoku jcDakoku;
 	private static Dakoku rDakoku;
-	private DbControl jcInfoControl;
-	private DbControl rInfoControl;
+	private JcDAO jcDao;
+	private RDAO rDao;
 	private static Dakokustate dakokustate;
 	private static SettingDialog sd;
 	private SimpleDateFormat dateFormat;
 	private Calendar calendar;
+
+	private Connection con;
 
 	private boolean isConnectable = false;
 
 	private boolean isFirstOpened = true;
 
 	public MainSystem() {
-		jcInfoControl = new JcInfoControl();
-		jcLogin = new JcLogin(jcInfoControl);
+		con = ConnectionManager.getConnection();
+		jcDao = new JcDAO(con);
+		jcLogin = new JcLogin(jcDao);
 
-		rInfoControl = new RInfoControl();
-		rLogin = new RLogin(rInfoControl);
+		rDao = new RDAO(con);
+		rLogin = new RLogin(rDao);
 		dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
 
 	}
@@ -87,24 +92,27 @@ public class MainSystem {
 		sd.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		String str = "";
 		if (!sd.isCanceled()) {
+			con = ConnectionManager.getConnection();
 			if (!sd.getJcLoginIdField().isBlank() && !sd.getJcLoginPassField().isBlank()) {
-				str += jcInfoControl.updateInfo(jcLogin, sd.getJcLoginIdField(), sd.getJcLoginPassField()) + "\n";
+				DAO dao = new JcDAO(con);
+				str += dao.updateDBInfo(jcLogin, sd.getJcLoginIdField(), sd.getJcLoginPassField()) + "\n";
 			}
 			if (!sd.getRLoginIdField().isBlank() && !sd.getRLoginPassField().isBlank()) {
-				str += rInfoControl.updateInfo(rLogin, sd.getRLoginIdField(), sd.getRLoginPassField()) + "\n";
+				DAO dao = new RDAO(con);
+				str += dao.updateDBInfo(rLogin, sd.getRLoginIdField(), sd.getRLoginPassField()) + "\n";
 			}
 		}
 		return str;
 	}
 
-	public void finishDriver() {
+	public void quitDriver() {
 		JcWebControl.getInstance().finishDriver();
 		RWebControl.getInstance().finishDriver();
 	}
 
 	public boolean isConnectableDB(String user, String pass) {
-		RunOnce runOnce = RunOnce.getInstance(user, pass);
-		isConnectable = runOnce.loginCheck();
+		RunOnce runOnce = RunOnce.getInstance(user, pass, con);
+		isConnectable = (con != null);
 		if (isConnectable) {
 			isFirstOpened = runOnce.run();
 			runOnce.setFirst(isFirstOpened);

@@ -89,7 +89,7 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		mainSystem.finishDriver();
+		mainSystem.quitDriver();
 		System.exit(0);
 
 	}

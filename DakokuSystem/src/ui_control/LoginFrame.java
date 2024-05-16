@@ -80,7 +80,7 @@ public class LoginFrame extends Frame implements ActionListener, WindowListener 
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		mainSystem.finishDriver();
+		mainSystem.quitDriver();
 		System.exit(0);
 
 	}
