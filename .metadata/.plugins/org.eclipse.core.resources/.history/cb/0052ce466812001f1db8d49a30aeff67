@@ -1,9 +1,0 @@
-package db_control.dao;
-
-public class ConnectionManager {
-
-	public ConnectionManager() {
-		// TODO 自動生成されたコンストラクター・スタブ
-	}
-
-}
