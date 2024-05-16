@@ -18,6 +18,8 @@ import login.RLogin;
 import settings.RunOnce;
 import ui_control.MainFrame;
 import ui_control.SettingDialog;
+import web_control.JcWebControl;
+import web_control.RWebControl;
 
 public class MainSystem {
 	private static Login jcLogin;
@@ -96,10 +98,8 @@ public class MainSystem {
 	}
 
 	public void finishDriver() {
-		jcLogin.getDriver().close();
-		jcLogin.getDriver().quit();
-		rLogin.getDriver().close();
-		rLogin.getDriver().quit();
+		JcWebControl.getInstance().finishDriver();
+		RWebControl.getInstance().finishDriver();
 	}
 
 	public boolean isConnectableDB(String user, String pass) {

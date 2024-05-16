@@ -39,6 +39,7 @@ public abstract class WebControl {
 	}
 
 	public void finishDriver() {
+		driver.close();
 		driver.quit();
 	}
 
