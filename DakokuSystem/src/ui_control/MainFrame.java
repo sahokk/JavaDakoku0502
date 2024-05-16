@@ -17,7 +17,6 @@ import java.awt.event.WindowListener;
 
 import db_control.DbControl;
 import run.MainSystem;
-import settings.RunOnce;
 
 public class MainFrame extends Frame implements ActionListener, ItemListener, WindowListener {
 	DbControl dbControl;
@@ -36,11 +35,8 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 	TextArea mainArea;
 	boolean isFirstOpened;
 
-	public MainFrame() {
-
-		isFirstOpened = new RunOnce().run();
-
-		mainSystem = new MainSystem();
+	public MainFrame(MainSystem mainSystem) {
+		this.mainSystem = mainSystem;
 		centerPanel = new Panel(new BorderLayout());
 		northPanel = new Panel(new BorderLayout());
 		northPanel2 = new Panel(new GridLayout(2, 1));
@@ -77,6 +73,8 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 		addWindowListener(this);
 
 		setTitle("打刻システム");
+
+		this.isFirstOpened = mainSystem.isFirstOpened();
 	}
 
 	@Override

@@ -12,24 +12,52 @@ public abstract class DbControl {
 	private String colmunsName;
 	private String tableName;
 
-	private static Connection sqlCon = null;
+	protected static Connection sqlCon = null;
 	private PreparedStatement sqlStmt = null;
 	private ResultSet res = null;
 
+	private static final String URL = "jdbc:mysql://localhost:3306/mysql";
+	private static String user;
+	private static String pass;
+
+	private static boolean isConnectable;
+
 	public DbControl() {
 		this.colmunsName = "";
+		isConnectable = false;
+
 	}
 
-	private static void connectDB() {
+	protected static boolean isConnectable() {
+		return isConnectable;
+	}
+
+	private static void setConnectable(boolean isConnectable) {
+		DbControl.isConnectable = isConnectable;
+	}
+
+	protected static void setUser(String user) {
+		DbControl.user = user;
+	}
+
+	protected static void setPass(String pass) {
+		DbControl.pass = pass;
+	}
+
+	protected static void connectDB() {
 		try {
-			sqlCon = DriverManager.getConnection(DbLoginInfo.GIKEN_URL.getValue(), DbLoginInfo.ROOT_USER.getValue(),
-					DbLoginInfo.ROOT_PASSWORD.getValue());
+			DbControl.sqlCon = DriverManager.getConnection(URL, user, pass);
+			System.out.println("success db con");
+			setConnectable(true);
 		} catch (SQLException e) {
+			user = null;
+			pass = null;
 			e.printStackTrace();
+			closeDB(null, null, sqlCon);
 		}
 	}
 
-	private static void closeDB(ResultSet res, PreparedStatement stmt, Connection con) {
+	protected static void closeDB(ResultSet res, PreparedStatement stmt, Connection con) {
 		try {
 			if (res != null) {
 				res.close();
@@ -45,12 +73,23 @@ public abstract class DbControl {
 		}
 	}
 
+	protected void useGikenDB() throws SQLException {
+		String sql = "USE " + DbLoginInfo.GIKEN_DB_NAME.getValue() + ";";
+		try {
+			sqlStmt = getSqlCon().prepareStatement(sql);
+			sqlStmt.executeUpdate();
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
 	public String getInfo(DbColumns columns) {
 		connectDB();
 		colmunsName = columns.getValue();
 		String sql = "SELECT " + colmunsName + " FROM " + tableName + ";";
 		try {
-			sqlStmt = sqlCon.prepareStatement(sql);
+			useGikenDB();
+			sqlStmt = getSqlCon().prepareStatement(sql);
 			res = sqlStmt.executeQuery();
 			if (res.next()) {
 				return !res.getString(colmunsName).isBlank() ? res.getString(colmunsName) : null;
@@ -58,7 +97,7 @@ public abstract class DbControl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			closeDB(res, sqlStmt, sqlCon);
+			closeDB(res, sqlStmt, getSqlCon());
 		}
 		return null;
 	}
@@ -72,7 +111,8 @@ public abstract class DbControl {
 			String sql = "UPDATE " + tableName + " SET " + DbColumns.LOGIN_ID.getValue() + "=?, "
 					+ DbColumns.LOGIN_PASS.getValue() + "=?;";
 			try {
-				sqlStmt = sqlCon.prepareStatement(sql);
+				useGikenDB();
+				sqlStmt = getSqlCon().prepareStatement(sql);
 				sqlStmt.setString(1, loginId);
 				sqlStmt.setString(2, loginPass);
 
@@ -85,7 +125,7 @@ public abstract class DbControl {
 			} catch (SQLException e) {
 				return e.getMessage();
 			} finally {
-				closeDB(res, sqlStmt, sqlCon);
+				closeDB(res, sqlStmt, getSqlCon());
 			}
 		} else {
 			str = "ログインテストに失敗しました。" + tableName + "\n";
@@ -95,6 +135,10 @@ public abstract class DbControl {
 
 	protected void setTableName(String tableName) {
 		this.tableName = tableName;
+	}
+
+	protected static Connection getSqlCon() {
+		return sqlCon;
 	}
 
 }

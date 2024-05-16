@@ -15,6 +15,7 @@ import db_control.RInfoControl;
 import login.JcLogin;
 import login.Login;
 import login.RLogin;
+import settings.RunOnce;
 import ui_control.MainFrame;
 import ui_control.SettingDialog;
 
@@ -29,6 +30,10 @@ public class MainSystem {
 	private static SettingDialog sd;
 	private SimpleDateFormat dateFormat;
 	private Calendar calendar;
+
+	private boolean isConnectable = false;
+
+	private boolean isFirstOpened = true;
 
 	public MainSystem() {
 		jcInfoControl = new JcInfoControl();
@@ -64,8 +69,10 @@ public class MainSystem {
 		}
 		if (r) {
 			rDakoku = new RDakoku(rLogin);
-			res += "R: " + (rDakoku.dakoku(dakokustate) ? "打刻完了 " + dateFormat.format(new Date()) + dakokustate.getValue()
-					: "打刻失敗") + "\n";
+			res += "R: "
+					+ (rDakoku.dakoku(dakokustate) ? "打刻完了 " + dateFormat.format(new Date()) + dakokustate.getValue()
+							: "打刻失敗")
+					+ "\n";
 		}
 		return res;
 	}
@@ -93,6 +100,20 @@ public class MainSystem {
 		jcLogin.getDriver().quit();
 		rLogin.getDriver().close();
 		rLogin.getDriver().quit();
+	}
+
+	public boolean isConnectableDB(String user, String pass) {
+		RunOnce runOnce = RunOnce.getInstance(user, pass);
+		isConnectable = runOnce.loginCheck();
+		if (isConnectable) {
+			isFirstOpened = runOnce.run();
+			runOnce.setFirst(isFirstOpened);
+		}
+		return isConnectable;
+	}
+
+	public boolean isFirstOpened() {
+		return isFirstOpened;
 	}
 
 }

@@ -1,14 +1,14 @@
 package run;
 
-import ui_control.MainFrame;
+import ui_control.LoginFrame;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		MainFrame mainFrame = new MainFrame();
-		mainFrame.setBounds(300, 300, 500, 300);
-		mainFrame.setVisible(true);
+		LoginFrame loginFrame = new LoginFrame();
+		loginFrame.setBounds(300, 300, 600, 200);
+		loginFrame.setVisible(true);
 	}
 
 }
