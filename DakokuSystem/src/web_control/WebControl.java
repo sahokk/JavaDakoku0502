@@ -11,7 +11,7 @@ public abstract class WebControl {
 	private static ChromeOptions chromeOptions = new ChromeOptions();
 
 	protected WebControl() {
-//		chromeOptions.addArguments("--headless");
+		chromeOptions.addArguments("--headless");
 		this.driver = new ChromeDriver(chromeOptions);
 		this.flagLogin = false;
 	}
