@@ -15,11 +15,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import db_control.DbControl;
 import run.MainSystem;
 
 public class MainFrame extends Frame implements ActionListener, ItemListener, WindowListener {
-	DbControl dbControl;
 	MainSystem mainSystem;
 	Panel centerPanel;
 	Panel northPanel;
