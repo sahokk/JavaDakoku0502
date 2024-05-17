@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import db_control.DbColumns;
 import db_control.DbLoginInfo;
 import entity.DBInfo;
-import login.Login;
 
 public abstract class DAO {
 	protected Connection con;
@@ -55,9 +54,8 @@ public abstract class DAO {
 		return dbInfo;
 	}
 
-	public String updateDBInfo(Login login, String loginId, String loginPass) {
+	public String updateDBInfo(Boolean isLogin, String loginId, String loginPass) {
 		String str = "";
-		boolean isLogin = login.loginTest(loginId, loginPass);
 		PreparedStatement stmt = null;
 		ResultSet res = null;
 

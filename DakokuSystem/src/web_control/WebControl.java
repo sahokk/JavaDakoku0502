@@ -11,7 +11,7 @@ public abstract class WebControl {
 	private static ChromeOptions chromeOptions = new ChromeOptions();
 
 	protected WebControl() {
-		chromeOptions.addArguments("--headless");
+//		chromeOptions.addArguments("--headless");
 		this.driver = new ChromeDriver(chromeOptions);
 		this.flagLogin = false;
 	}
@@ -32,15 +32,11 @@ public abstract class WebControl {
 		this.pageUrl = pageUrl;
 	}
 
-	protected void accessLoginPage() {
+	public void accessLoginPage() {
 		if (!flagLogin) {
-			driver.get(pageUrl);
+			driver.navigate().to(pageUrl);
 		}
-	}
-
-	public void finishDriver() {
-		driver.close();
-		driver.quit();
+		toggleFlagLogin(pageUrl);
 	}
 
 	public void toggleFlagLogin(String currentUrl) {

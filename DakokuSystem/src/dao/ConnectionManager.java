@@ -20,14 +20,6 @@ public class ConnectionManager {
 		isConnectable = false;
 	}
 
-	public static void setUser(String user) {
-		ConnectionManager.user = user;
-	}
-
-	public static void setPass(String pass) {
-		ConnectionManager.pass = pass;
-	}
-
 	public static Connection getConnection() {
 		Connection con = null;
 		try {
@@ -37,6 +29,20 @@ public class ConnectionManager {
 		} catch (SQLException e) {
 			user = null;
 			pass = null;
+			closeDB(null, null, con);
+		}
+		return con;
+	}
+
+	public static Connection getConnection(String user, String pass) {
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(URL, user, pass);
+			System.out.println("success db con");
+			setConnectable(true);
+			ConnectionManager.user = user;
+			ConnectionManager.pass = pass;
+		} catch (SQLException e) {
 			closeDB(null, null, con);
 		}
 		return con;

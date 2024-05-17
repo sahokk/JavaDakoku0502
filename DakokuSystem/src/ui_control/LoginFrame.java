@@ -31,7 +31,7 @@ public class LoginFrame extends Frame implements ActionListener, WindowListener 
 	MainSystem mainSystem;
 
 	public LoginFrame() {
-		this.mainSystem = new MainSystem();
+		this.mainSystem = MainSystem.getInstance();
 
 		userField = new TextField("", 20);
 		passField = new TextField("", 20);
@@ -118,10 +118,10 @@ public class LoginFrame extends Frame implements ActionListener, WindowListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancelButton) {
+			mainSystem.quitDriver();
 			System.exit(0);
 		} else if (e.getSource() == okButton) {
 			boolean connectable = mainSystem.isConnectableDB(userField.getText(), passField.getText());
-			System.out.println(connectable);
 			if (connectable) {
 				setVisible(false);
 				dispose();

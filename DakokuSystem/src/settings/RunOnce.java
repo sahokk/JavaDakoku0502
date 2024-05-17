@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dao.ConnectionManager;
 import dao.DAO;
 import db_control.DbColumns;
 import db_control.DbLoginInfo;
@@ -113,9 +112,7 @@ public class RunOnce extends DAO {
 		return con;
 	}
 
-	public static RunOnce getInstance(String user, String pass, Connection con) {
-		ConnectionManager.setUser(user);
-		ConnectionManager.setPass(pass);
+	public static RunOnce getInstance(Connection con) {
 		RunOnce.con = con;
 		return runOnce;
 	}
