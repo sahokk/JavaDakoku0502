@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import dao.DAO;
+import db_control.DbColumns;
 import web_control.WebControl;
 
 public abstract class Login {
@@ -24,17 +26,13 @@ public abstract class Login {
 		this.logoutUrl = logoutUrl;
 		this.loginId = null;
 		this.loginPass = null;
-		webControl.toggleFlagLogin(webControl.getPageUrl());
 		this.isLogin = webControl.isFlagLogin();
 
 	}
 
-	protected void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
-
-	protected void setLoginPass(String loginPass) {
-		this.loginPass = loginPass;
+	protected void setInfo(DAO dao) {
+		this.loginId = dao.serchDBInfo(DbColumns.LOGIN_ID.getValue()).getUser();
+		this.loginPass = dao.serchDBInfo(DbColumns.LOGIN_PASS.getValue()).getPass();
 	}
 
 	private void sendLoginIdToField(String loginId) {
@@ -58,12 +56,14 @@ public abstract class Login {
 		driver.findElement(loginButton).click();
 	}
 
-	protected void pushLogoutButton() {
+	private void pushLogoutButton() {
 		driver.navigate().to(logoutUrl);
-		driver.navigate().to(webControl.getPageUrl());
+		webControl.toggleFlagLogin(logoutUrl);
+		webControl.accessLoginPage();
 	}
 
 	public boolean login() {
+		logout();
 		isLogin = webControl.isFlagLogin();
 		if (!isLogin) {
 			try {
@@ -82,8 +82,8 @@ public abstract class Login {
 
 	}
 
-	public boolean loginTest(String loginId, String loginPass) {
-		this.logout();
+	public boolean login(String loginId, String loginPass) {
+		logout();
 		if (!isLogin) {
 			try {
 				this.sendLoginIdToField(loginId);
@@ -98,6 +98,7 @@ public abstract class Login {
 		}
 
 		return isLogin;
+
 	}
 
 	private void logout() {
@@ -108,15 +109,15 @@ public abstract class Login {
 			} catch (NoSuchElementException e) {
 				e.printStackTrace();
 			} finally {
-				webControl.toggleFlagLogin(driver.getCurrentUrl());
 				isLogin = webControl.isFlagLogin();
-				System.out.println("ログアウトしました");
 			}
 		}
 	}
 
-	public WebDriver getDriver() {
-		return this.driver;
+	public void finishDriver() {
+		if (driver != null) {
+			driver.close();
+			driver.quit();
+		}
 	}
-
 }

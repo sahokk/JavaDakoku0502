@@ -6,7 +6,7 @@ public enum MyUrls {
 	JC_LOGOUT_URL("https://z001.majorflowz.com/MFZT/2515/ZtLogout/Logout"),
 	R_LOGIN_URL("https://r-system1.com/Login/Index/0"),
 	R_DAKOKU_URL("https://r-system1.com/TimeCard"),
-	RLOGOUT_URL("https://r-system1.com/Login/Index/0");
+	R_LOGOUT_URL("https://r-system1.com/Login/Index/0");
 
 	private String str;
 

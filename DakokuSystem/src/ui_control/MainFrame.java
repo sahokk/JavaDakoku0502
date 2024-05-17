@@ -33,7 +33,6 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 	Button settingButton;
 
 	TextArea mainArea;
-	boolean isFirstOpened;
 
 	public MainFrame(MainSystem mainSystem) {
 		this.mainSystem = mainSystem;
@@ -74,14 +73,13 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 		setTitle("打刻システム");
 
-		this.isFirstOpened = mainSystem.isFirstOpened();
 	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		if (isFirstOpened) {
+		if (mainSystem.isFirstOpened()) {
 			mainArea.setText("はじめまして！　初めにログイン情報を登録してください。");
-			String str = mainSystem.pushSettingButton(this, isFirstOpened);
+			String str = mainSystem.pushSettingButton(this);
 			mainArea.setText(str);
 		}
 
@@ -89,7 +87,7 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		mainSystem.finishDriver();
+		mainSystem.quitDriver();
 		System.exit(0);
 
 	}
@@ -114,7 +112,6 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
@@ -140,7 +137,7 @@ public class MainFrame extends Frame implements ActionListener, ItemListener, Wi
 
 		} else if (e.getSource() == settingButton) {
 			mainArea.setText("setting");
-			String str = mainSystem.pushSettingButton(this, isFirstOpened);
+			String str = mainSystem.pushSettingButton(this);
 			mainArea.setText(str);
 
 		}
